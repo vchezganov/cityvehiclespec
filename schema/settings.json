@@ -1,0 +1,70 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://github.com/vchezganov/cityvehiclespec/schema/settings.json",
+    "title": "Settings",
+    "type": "object",
+    "properties": {
+        "schemaVersion": {
+            "description": "Version of the schema in X.Y.Z format.",
+            "type": "string"
+        },
+
+        "dataVersion": {
+            "description": "Version of the data in X.Y.Z format.",
+            "type": "string"
+        },
+
+        "name": {
+            "description": "Name of the data.",
+            "type": "string"
+        },
+
+        "language": {
+            "description": "Default language of the data",
+            "type": "string"
+        },
+
+        "validity": {
+            "description": "Validity of the data.",
+            "type": "object",
+            "properties": {
+                "from": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "to": {
+                    "type": "string",
+                    "format": "date"
+                }
+            },
+            "required": [
+                "from",
+                "to"
+            ],
+            "examples": [
+                {
+                    "validity": {
+                        "from": "2023-01-01",
+                        "to": "2023-12-31"
+                    }
+                }
+            ]
+        },
+        "sameStopTransferTime": {
+            "description": "Default transfer time on the same stop",
+            "type": "integer"
+        },
+        "childStopTransferTime": {
+            "description": "Default transfer time between child stops",
+            "type": "integer"
+        }
+    },
+    "required": [
+        "schemaVersion",
+        "dataVersion",
+        "language",
+        "validity",
+        "sameStopTransferTime",
+        "childStopTransferTime"
+    ]
+}

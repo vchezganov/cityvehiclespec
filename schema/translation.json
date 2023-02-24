@@ -1,0 +1,19 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://github.com/vchezganov/cityvehiclespec/schema/translation.json",
+    "title": "Translations",
+    "type": "object",
+    "properties": {
+        "text": {
+            "description": "Text having translations",
+            "type": "string"
+        },
+        "translations": {
+            "description": "Translations of the text",
+            "type": "object"
+        }
+    },
+    "required": [
+        "text"
+    ]
+}

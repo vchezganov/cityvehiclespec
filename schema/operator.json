@@ -1,0 +1,164 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://github.com/vchezganov/cityvehiclespec/schema/operator.json",
+    "title": "Operator",
+    "type": "object",
+    "properties": {
+        "id": {
+            "description": "The unique identifier for an operator.",
+            "type": "string"
+        },
+
+        "name": {
+            "description": "Name of the operator.",
+            "$ref": "definitions.json#/$defs/translation",
+            "examples": [
+                {
+                    "name": "Operator One"
+                },
+                {
+                    "name": {
+                        "en": "Operator One",
+                        "de": "Operator Eins"
+                    }
+                }
+            ]
+        },
+
+        "description": {
+            "description": "Description of the operator.",
+            "$ref": "definitions.json#/$defs/translation"
+        },
+
+        "language": {
+            "description": "Default language for the operator. It should be used by default in responses if no specific language is requested, or if there are no translations for the requested language.",
+            "type": "string"
+        },
+
+        "timezone": {
+            "description": "Timezone where the operator operates. All route timetable times, that belong to the operator, are defined in this timezone.",
+            "type": "string"
+        },
+
+        "web": {
+            "description": "Website of the operator.",
+            "type": "string"
+        },
+
+        "phone": {
+            "description": "Phone number(s) of the operator.",
+            "oneOf": [
+                {
+                    "description": "Defines only one main phone number of the operator.",
+                    "type": "string",
+                    "examples": [
+                        {
+                            "phone": "+1234567890"
+                        }
+                    ]
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "description": "Defines various phone numbers of the operator.",
+                        "type": "object",
+                        "properties": {
+                            "phoneType": {
+                                "description": "Type of the phone number.",
+                                "enum": [
+                                    "main",
+                                    "support",
+                                    "information"
+                                ]
+                            },
+                            "value": {
+                                "description": "Phone number.",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "phoneType",
+                            "value"
+                        ],
+                        "uniqueItems": true,
+                        "examples": [
+                            {
+                                "phone": [
+                                    {
+                                        "phoneType": "support",
+                                        "value": "+1234567890"
+                                    },
+                                    {
+                                        "phoneType": "information",
+                                        "value": "+0987654321"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+
+        "email": {
+            "description": "Email address(es) of the operator.",
+            "oneOf": [
+                {
+                    "description": "Defines only one main email address of the operator.",
+                    "type": "string"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "description": "Defines various email addresses of the operator.",
+                        "type": "object",
+                        "properties": {
+                            "emailType": {
+                                "description": "Type of the email.",
+                                "enum": [
+                                    "main",
+                                    "support",
+                                    "information"
+                                ]
+                            },
+                            "value": {
+                                "description": "Email address.",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "emailType",
+                            "value"
+                        ],
+                        "uniqueItems": true
+                    }
+                }
+            ]
+        },
+
+        "loc": {
+            "description": "Location of the operator.",
+            "$ref": "definitions.json#/$defs/location"
+        },
+
+        "graphicIcon": {
+            "description": "Graphic identifier or relative path (with or without extension) to a graphic file defining an icon for the operator.",
+            "type": "string",
+            "examples": [
+                {
+                    "graphicIcon": "graphic_operator_abc"
+                },
+                {
+                    "graphicIcon": "graphic/operator_abc.svg"
+                }
+            ]
+        }
+    },
+
+    "required": [
+        "id",
+        "name",
+        "language",
+        "timezone"
+    ]
+}

@@ -1,0 +1,20 @@
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="CityVehicleSpec is the specification for public transit data (stops, routes, timetables, etc) and mobility data (personal or shared scooters, bikes, cars, etc)">
+    <meta name="keywords" content="public transit, mobility data, format, specification, bus, train, timetables, car, scooter, sharing, GTFS, GBFS">
+
+    {%- seo -%}
+
+    <link rel="stylesheet" href="{{ "/assets/main.css" | relative_url }}">
+
+    <link rel="stylesheet" href="{{ '/assets/css/schema.css?v=' | append: site.github.build_revision | relative_url }}">
+    <script src="{{ '/assets/js/schema.js' | relative_url }}"></script>
+
+    {%- feed_meta -%}
+    {%- if jekyll.environment == 'production' and site.google_analytics -%}
+      {%- include google-analytics.html -%}
+    {%- endif -%}
+  </head>

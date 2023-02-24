@@ -1,0 +1,51 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://github.com/vchezganov/cityvehiclespec/schema/place/place_group.json",
+    "title": "Group",
+    "type": "object",
+    "properties": {
+        "id": {
+            "description": "Unique identifier for the group.",
+            "type": "string"
+        },
+
+        "name": {
+            "description": "Name of the group.",
+            "$ref": "../definitions.json#/$defs/translation"
+        },
+
+        "description": {
+            "description": "Description of the group.",
+            "$ref": "../definitions.json#/$defs/translation"
+        },
+
+        "loc": {
+            "description": "Location of the group if any.",
+            "$ref": "../definitions.json#/$defs/location"
+        },
+
+        "web": {
+            "description": "Website of the group.",
+            "type": "string"
+        },
+
+        "features": {
+            "description": "Features of the group. All places in the group will inherit these features.",
+            "$ref": "../definitions.json#/$defs/placeFeatures"
+        },
+
+        "places": {
+            "description": "List of unique place identifiers that belong to the group.",
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "uniqueItems": true
+        }
+    },
+    "required": [
+        "id",
+        "name",
+        "places"
+    ]
+}

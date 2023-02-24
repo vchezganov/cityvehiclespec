@@ -1,0 +1,11 @@
+{
+    "schemaVersion": "0.1.0",
+    "dataVersion": "0.1.0",
+    "language": "en",
+    "validity": {
+        "from": "2023-01-01",
+        "to": "2023-12-31"
+    },
+    "sameStopTransferTime": 120,
+    "childStopTransferTime": 240
+}

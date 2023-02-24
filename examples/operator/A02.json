@@ -1,0 +1,10 @@
+{
+    "id": "A02",
+    "name": "Agency 02",
+    "language": "en-US",
+    "timezone": "Europe/Paris",
+    "phone": [
+        {"phoneType": "information", "value": "54321"},
+        {"phoneType": "support", "value": "12345"}
+    ]
+}
