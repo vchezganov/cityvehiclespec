@@ -1,0 +1,148 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://github.com/vchezganov/cityjson/schema/definitions.json
+$defs:
+  longitude:
+    description: Longitude
+    type: number
+    minimum: -180
+    maximum: 180
+  latitude:
+    description: Latitude
+    type: number
+    minimum: -90
+    maximum: 90
+  altitude:
+    description: Altitude in meters
+    type: number
+  location:
+    description: Geographical location of longitude, latitude and optional altitude
+    oneOf:
+    - description: Array of coordinates
+      type: array
+      minItems: 2
+      maxItems: 3
+      prefixItems:
+      - $ref: '#/$defs/longitude'
+      - $ref: '#/$defs/latitude'
+      - $ref: '#/$defs/altitude'
+    - description: Object of coordinates
+      type: object
+      properties:
+        lon:
+          $ref: '#/$defs/longitude'
+        lat:
+          $ref: '#/$defs/latitude'
+        alt:
+          $ref: '#/$defs/altitude'
+      required:
+      - lon
+      - lat
+  time24:
+    description: Time in 24 hours format.
+    type: string
+  color:
+    description: Color in HEX format
+    type: string
+    pattern: ^#[0-9a-fA-F]{6}$
+  translation:
+    oneOf:
+    - description: Text in agency's language. Translation can be specified using Translation
+        entities.
+      type: string
+    - description: Texts for different languages. Agency's language must be present.
+      type: object
+  stopFeaturesList:
+    type: array
+    items:
+      enum:
+      - wheelchair_access
+      - elevator
+      - upstairs_escalator
+      - downstairs_escalator
+  stopFeatures:
+    description: Stop features.
+    oneOf:
+    - description: List of stop features.
+      $ref: '#/$defs/stopFeaturesList'
+    - description: Stop features to be additionally included or excluded to inherited
+        ones.
+      type: object
+      properties:
+        include:
+          description: Features to be included additionally to inherited ones.
+          $ref: '#/$defs/stopFeaturesList'
+        exclude:
+          description: Features to be excluded additionally to inherited ones.
+          $ref: '#/$defs/stopFeaturesList'
+      additionalProperties: false
+  routeFeaturesList:
+    type: array
+    items:
+      enum:
+      - wheelchair_access
+      - bike_allowed
+      - air_condition
+  routeFeatures:
+    oneOf:
+    - description: List of route features.
+      $ref: '#/$defs/routeFeaturesList'
+    - description: Route features to be additionally included or excluded to inherited
+        ones.
+      type: object
+      properties:
+        include:
+          description: Features to be included additionally to inherited ones.
+          $ref: '#/$defs/routeFeaturesList'
+        exclude:
+          description: Features to be excluded additionally to inherited ones.
+          $ref: '#/$defs/routeFeaturesList'
+      additionalProperties: false
+  graphics:
+    oneOf:
+    - description: Reference identifier to the geometry with or without format
+      type: string
+    - description: Geometry of the entity
+      type: object
+      properties:
+        format:
+          description: Format of the geometry data
+          enum:
+          - base64_svg
+          - base64_png
+          - base64_jpg
+          - geojson
+        data:
+          description: Geometry data of the entity
+      required:
+      - format
+      - data
+  operationDays:
+    description: Operation days of the route
+    type: object
+    properties:
+      weekdays:
+        description: Array of weekdays
+        type: array
+        items:
+          enum:
+          - Mo
+          - Tu
+          - We
+          - Th
+          - Fr
+          - Sa
+          - Su
+        uniqueItems: true
+      include:
+        type: array
+        items:
+          type: string
+          format: date
+        uniqueItems: true
+      exclude:
+        type: array
+        items:
+          type: string
+          format: date
+        uniqueItems: true
+    additionalProperties: false

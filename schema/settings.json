@@ -1,0 +1,55 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://github.com/vchezganov/cityjson/schema/settings.json",
+    "title": "Settings",
+    "type": "object",
+    "properties": {
+        "schemaVersion": {
+            "description": "Version of the schema",
+            "type": "string"
+        },
+        "dataVersion": {
+            "description": "Version of the data",
+            "type": "string"
+        },
+        "name": {
+            "description": "Name of the data",
+            "type": "string"
+        },
+        "language": {
+            "description": "Default language of the data",
+            "type": "string"
+        },
+        "validity": {
+            "description": "Validity of the data",
+            "type": "object",
+            "properties": {
+                "from": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "to": {
+                    "type": "string",
+                    "format": "date"
+                }
+            },
+            "required": ["from", "to"]
+        },
+        "sameStopTransferTime": {
+            "description": "Default transfer time on the same stop",
+            "type": "integer"
+        },
+        "childStopTransferTime": {
+            "description": "Default transfer time between child stops",
+            "type": "integer"
+        }
+    },
+    "required": [
+        "schemaVersion",
+        "dataVersion",
+        "language",
+        "validity",
+        "sameStopTransferTime",
+        "childStopTransferTime"
+    ]
+}

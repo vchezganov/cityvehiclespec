@@ -1,0 +1,11 @@
+docs_list_title: CityJSON Documentation
+
+docs:
+- title: Index
+  url: index.markdown
+
+- title: Settings
+  url: settings.markdown
+
+- title: Agencies
+  url: agencies.markdown

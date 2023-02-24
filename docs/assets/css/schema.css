@@ -1,0 +1,64 @@
+.main {
+    /* width: 60%; */
+    /* margin: auto; */
+    font-family: monospace;
+    margin-bottom: 1.5em;
+}
+.code {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.required {
+    font-size: 0.8em;
+    color: firebrick;
+}
+
+.addition {
+    margin-top: 0.5em;
+    margin-left: 0.5em;
+    padding-left: 0.5em;
+    border-left: 1px solid lightgray;
+}
+
+.field {
+    display: flex;
+    padding: 0.2em;
+    padding-top: 0.7em;
+    padding-bottom: 0.7em;
+    justify-content: space-between;
+    border-bottom: 1px solid lightgray;
+    align-items: center;
+}
+
+.field:hover {
+    background-color: lightgrey;
+}
+
+.active:hover {
+    color: mediumblue;
+    cursor: pointer;
+}
+
+.field > div:first-child {
+    flex: 1 1 0px;
+    font-weight: bold;
+}
+
+.field > div:nth-child(2) {
+    flex: 1 1 0px;
+}
+
+.field > div:nth-child(3) {
+    flex: 5 1 0px;
+    font-family: regular;
+}
+
+/* .field > div:nth-child(4) {
+    flex: 5 1 0px;
+    font-family: regular;
+} */
+
+.shift {
+    margin-left: 2em;
+    display: none;
+}

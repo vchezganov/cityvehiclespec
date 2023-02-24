@@ -1,0 +1,139 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://github.com/vchezganov/cityjson/schema/routes.json",
+    "title": "Route",
+    "type": "object",
+    "properties": {
+        "id": {
+            "description": "Unique identifier for the route",
+            "type": "string"
+        },
+        "agency": {
+            "description": "Agency's identifier the route belongs to",
+            "type": "string"
+        },
+        "name": {
+            "description": "Name of the route",
+            "$ref": "definitions.json#/$defs/translation"
+        },
+        "description": {
+            "description": "Description of the route",
+            "$ref": "definitions.json#/$defs/translation"
+        },
+        "lineColor": {
+            "description": "Line color of the route",
+            "$ref": "definitions.json#/$defs/color"
+        },
+        "fontColor": {
+            "description": "Font color of the route",
+            "$ref": "definitions.json#/$defs/color"
+        },
+        "vehicleType": {
+            "description": "Vehicle type of the route",
+            "type": ["string", "number"]
+        },
+        "features": {
+            "description": "Features of the trip.",
+            "$ref": "definitions.json#/$defs/routeFeatures"
+        },
+        "operationDays": {
+            "description": "Operation days of the route",
+            "$ref": "definitions.json#/$defs/operationDays"
+        },
+        "timezone": {
+            "description": "Timezone where the agency operates and that is used for timetables",
+            "type": "string"
+        },
+        "icon": {
+            "description": "Icon of the route",
+            "$ref": "definitions.json#/$defs/graphics"
+        },
+        "shape": {
+            "description": "Shape of the route",
+            "$ref": "definitions.json#/$defs/graphics"
+        },
+        "trips": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "description": "Name of the trip.",
+                        "$ref": "definitions.json#/$defs/translation"
+                    },
+                    "direction": {
+                        "description": "Direction of the trip.",
+                        "$ref": "definitions.json#/$defs/translation"
+                    },
+                    "features": {
+                        "description": "Features of the trip additionally to the route's features.",
+                        "$ref": "definitions.json#/$defs/routeFeatures"
+                    },
+                    "timetables": {
+                        "type": "array",
+                        "items": {
+                            "oneOf": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "times": {
+                                            "type": "array",
+                                            "items": {
+                                                "oneOf": [
+                                                    {
+                                                        "type": "array",
+                                                        "minItems": 3,
+                                                        "maxItems": 3,
+                                                        "prefixItems": [
+                                                            {
+                                                                "description": "Stop identifier.",
+                                                                "type": "string"
+                                                            },
+                                                            {
+                                                                "description": "Arrival time to the stop",
+                                                                "$ref": "definitions.json#/$defs/time24"
+                                                            },
+                                                            {
+                                                                "description": "Departure time from the stop",
+                                                                "$ref": "definitions.json#/$defs/time24"
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "type": "object"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "required": ["times"]
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "firstTrip": {},
+                                        "interval": {
+                                            "description": "Interval between trips in seconds",
+                                            "type": "integer"
+                                        },
+                                        "endTime": {
+                                            "description": "Time of the last trip",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": ["firstTrip", "interval", "endTime"]
+                                }
+                            ]
+                        }
+                    }
+                },
+                "required": ["timetables"]
+            }
+        }
+    },
+    "required": [
+        "id",
+        "name",
+        "agency"
+    ]
+}

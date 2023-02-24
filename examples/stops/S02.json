@@ -1,0 +1,38 @@
+{
+    "id": "02",
+    "name": "Stop 02",
+    "loc": [13.404954, 52.520008, 0],
+    "stopType": "parent",
+    "timezone": "Europe/Berlin",
+
+    "features": [
+        "wheelchair_access",
+        "elevator",
+        "upstairs_escalator"
+    ],
+
+    "accessPoints": [
+        {
+            "id": "02-ap01",
+            "name": "West side entrance",
+            "loc": [12.345678, 87.654321],
+            "features": {
+                "exclude": ["upstairs_escalator"],
+                "include": ["downstairs_escalator"]
+            }
+        }
+    ],
+
+    "childStops": [
+        {
+            "id": "02-child01",
+            "name": "Platform 1",
+            "description": "Has no features",
+            "loc": {
+                "lon": 12.345678,
+                "lat": 87.654321
+            },
+            "features": []
+        }
+    ]
+}
