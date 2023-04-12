@@ -33,7 +33,10 @@
                     "format": "date"
                 }
             },
-            "required": ["from", "to"]
+            "required": [
+                "from",
+                "to"
+            ]
         },
         "sameStopTransferTime": {
             "description": "Default transfer time on the same stop",

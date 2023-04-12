@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Stops
+title: Stop
 permalink: /stops
 ---
 
@@ -8,9 +8,10 @@ permalink: /stops
 - [Schema](#schema)
 - [Examples](#examples)
 
-**Agency** entity presents information about certain provider. It could be
-a bus operator, a rail agency, or a mobility provider for shared vehicles.
+**Stop** entity presents information about certain stop.
 
+## Description
+<div class="main">
 
 <div class="field">
     <div>id<br /><span class="required">required</span></div>
@@ -607,17 +608,271 @@ geojson
 
 </div>
 
+</div>
 
+## Schema
 ```json
-{% include_relative data/schema/agencies.json -%}
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/vchezganov/cityjson/schema/stops.json",
+  "title": "Stop",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Unique identifier for the stop",
+      "type": "string"
+    },
+    "name": {
+      "description": "Name of the stop",
+      "$ref": "definitions.json#/$defs/translation"
+    },
+    "description": {
+      "description": "Description of the stop",
+      "$ref": "definitions.json#/$defs/translation"
+    },
+    "loc": {
+      "description": "Location of the stop",
+      "$ref": "definitions.json#/$defs/location"
+    },
+    "web": {
+      "description": "Website of the stop",
+      "type": "string"
+    },
+    "features": {
+      "description": "Features of the stop. All access points and child stops, if any, inherit these features.",
+      "$ref": "definitions.json#/$defs/stopFeatures"
+    },
+    "timezone": {
+      "description": "Timezone where the agency operates and that is used for timetables",
+      "type": "string"
+    },
+    "accessPoints": {
+      "description": "Access points of the stop",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Unique identifier for the access point",
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of the access point",
+            "type": "string"
+          },
+          "loc": {
+            "description": "Location of the access point",
+            "$ref": "definitions.json#/$defs/location"
+          },
+          "features": {
+            "description": "Features of the access point (additionally to inherited from the parent stop)",
+            "$ref": "definitions.json#/$defs/stopFeatures"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "loc"
+        ]
+      }
+    },
+    "childStops": {
+      "description": "Child stops of the stop",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Unique identifier for the child point",
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of the child point",
+            "type": "string"
+          },
+          "loc": {
+            "description": "Location of the child point",
+            "$ref": "definitions.json#/$defs/location"
+          },
+          "features": {
+            "description": "Features of the child point (additionally to inherited from the parent stop)",
+            "$ref": "definitions.json#/$defs/stopFeatures"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "loc"
+        ]
+      }
+    },
+    "icon": {
+      "description": "Icon for the agency in base64 format",
+      "type": "string"
+    },
+    "graphics": {
+      "$ref": "definitions.json#/$defs/graphics"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "loc"
+  ]
+}
 ```
 
-{% assign counter = 0 %}
-{% for ex in site.static_files %}
-  {% if ex.path contains 'examples/agencies' %}
-  {% assign counter = counter | plus: 1 %}
+## Examples
+### #1
 ```json
-{% include_relative {{ ex.path }} -%}
+{
+  "id": "01",
+  "name": "Stop 01",
+  "description": {
+    "en": "Bus stop for interregional trips",
+    "de-de": "Bushaltestelle für interregionale Reisen"
+  },
+  "loc": [
+    13.404954,
+    52.520008,
+    34
+  ],
+  "stopType": "parent",
+  "timezone": "Europe/Berlin",
+  "features": [
+    "wheelchair_access",
+    "elevator",
+    "upstairs_escalator"
+  ],
+  "accessPoints": [
+    {
+      "id": "01-ap01",
+      "name": "West side entrance",
+      "loc": [
+        12.345678,
+        87.654321
+      ],
+      "features": [
+        "downstairs_escalator"
+      ]
+    }
+  ],
+  "childStops": [],
+  "icon": "",
+  "graphics": {
+    "format": "geojson",
+    "data": {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              13.368270255270005,
+              52.52573885487206
+            ],
+            [
+              13.36928032987069,
+              52.52428739765102
+            ],
+            [
+              13.369625881706838,
+              52.52428335452754
+            ],
+            [
+              13.369708947053311,
+              52.524160039088116
+            ],
+            [
+              13.37039340549967,
+              52.524162060655414
+            ],
+            [
+              13.370293727085027,
+              52.52428335452754
+            ],
+            [
+              13.370635956307524,
+              52.52427931140406
+            ],
+            [
+              13.369632526935476,
+              52.52573885487206
+            ],
+            [
+              13.36928032987069,
+              52.52573885487206
+            ],
+            [
+              13.369190619297001,
+              52.525866208857366
+            ],
+            [
+              13.368542709603389,
+              52.52586823034653
+            ],
+            [
+              13.36862577494847,
+              52.525734811882614
+            ],
+            [
+              13.368270255270005,
+              52.52573885487206
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      }
+    }
+  }
+}
 ```
-  {% endif %}
-{% endfor %}
+### #2
+```json
+{
+  "id": "02",
+  "name": "Stop 02",
+  "loc": [
+    13.404954,
+    52.520008,
+    0
+  ],
+  "stopType": "parent",
+  "timezone": "Europe/Berlin",
+  "features": [
+    "wheelchair_access",
+    "elevator",
+    "upstairs_escalator"
+  ],
+  "accessPoints": [
+    {
+      "id": "02-ap01",
+      "name": "West side entrance",
+      "loc": [
+        12.345678,
+        87.654321
+      ],
+      "features": {
+        "exclude": [
+          "upstairs_escalator"
+        ],
+        "include": [
+          "downstairs_escalator"
+        ]
+      }
+    }
+  ],
+  "childStops": [
+    {
+      "id": "02-child01",
+      "name": "Platform 1",
+      "description": "Has no features",
+      "loc": {
+        "lon": 12.345678,
+        "lat": 87.654321
+      },
+      "features": []
+    }
+  ]
+}
+```

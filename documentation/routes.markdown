@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Routes
+title: Route
 permalink: /routes
 ---
 
@@ -8,9 +8,11 @@ permalink: /routes
 - [Schema](#schema)
 - [Examples](#examples)
 
-**Agency** entity presents information about certain provider. It could be
-a bus operator, a rail agency, or a mobility provider for shared vehicles.
+**Route** entity presents information about certain route. It contains information
+about the route (name, line color, vehicle type, shape etc) and timetables for trips.
 
+## Description
+<div class="main">
 
 <div class="field">
     <div>id<br /><span class="required">required</span></div>
@@ -535,17 +537,533 @@ air_condition
 
 </div>
 
+</div>
 
+## Schema
 ```json
-{% include_relative data/schema/agencies.json -%}
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/vchezganov/cityjson/schema/routes.json",
+  "title": "Route",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Unique identifier for the route",
+      "type": "string"
+    },
+    "agency": {
+      "description": "Agency's identifier the route belongs to",
+      "type": "string"
+    },
+    "name": {
+      "description": "Name of the route",
+      "$ref": "definitions.json#/$defs/translation"
+    },
+    "description": {
+      "description": "Description of the route",
+      "$ref": "definitions.json#/$defs/translation"
+    },
+    "lineColor": {
+      "description": "Line color of the route",
+      "$ref": "definitions.json#/$defs/color"
+    },
+    "fontColor": {
+      "description": "Font color of the route",
+      "$ref": "definitions.json#/$defs/color"
+    },
+    "vehicleType": {
+      "description": "Vehicle type of the route",
+      "type": [
+        "string",
+        "number"
+      ]
+    },
+    "features": {
+      "description": "Features of the trip.",
+      "$ref": "definitions.json#/$defs/routeFeatures"
+    },
+    "operationDays": {
+      "description": "Operation days of the route",
+      "$ref": "definitions.json#/$defs/operationDays"
+    },
+    "timezone": {
+      "description": "Timezone where the agency operates and that is used for timetables",
+      "type": "string"
+    },
+    "icon": {
+      "description": "Icon of the route",
+      "$ref": "definitions.json#/$defs/graphics"
+    },
+    "shape": {
+      "description": "Shape of the route",
+      "$ref": "definitions.json#/$defs/graphics"
+    },
+    "trips": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "Name of the trip.",
+            "$ref": "definitions.json#/$defs/translation"
+          },
+          "direction": {
+            "description": "Direction of the trip.",
+            "$ref": "definitions.json#/$defs/translation"
+          },
+          "features": {
+            "description": "Features of the trip additionally to the route's features.",
+            "$ref": "definitions.json#/$defs/routeFeatures"
+          },
+          "timetables": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "times": {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "array",
+                            "minItems": 3,
+                            "maxItems": 3,
+                            "prefixItems": [
+                              {
+                                "description": "Stop identifier.",
+                                "type": "string"
+                              },
+                              {
+                                "description": "Arrival time to the stop",
+                                "$ref": "definitions.json#/$defs/time24"
+                              },
+                              {
+                                "description": "Departure time from the stop",
+                                "$ref": "definitions.json#/$defs/time24"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "object"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "times"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "firstTrip": {},
+                    "interval": {
+                      "description": "Interval between trips in seconds",
+                      "type": "integer"
+                    },
+                    "endTime": {
+                      "description": "Time of the last trip",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "firstTrip",
+                    "interval",
+                    "endTime"
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "timetables"
+        ]
+      }
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "agency"
+  ]
+}
 ```
 
-{% assign counter = 0 %}
-{% for ex in site.static_files %}
-  {% if ex.path contains 'examples/agencies' %}
-  {% assign counter = counter | plus: 1 %}
+## Examples
+### #1
 ```json
-{% include_relative {{ ex.path }} -%}
+{
+  "id": "R01",
+  "agency": "A01",
+  "name": "Route 01",
+  "description": "Route One",
+  "lineColor": "#770077",
+  "fontColor": "#000000",
+  "vehicleType": "bus",
+  "features": [
+    "bike_allowed",
+    "wheelchair_access"
+  ],
+  "operationDays": {
+    "weekdays": [
+      "Mo",
+      "Tu",
+      "Fr"
+    ],
+    "include": [
+      "2023-02-28",
+      "2023-03-08"
+    ],
+    "exclude": [
+      "2023-02-27"
+    ]
+  },
+  "trips": [
+    {
+      "name": "Long trip",
+      "direction": "To city center",
+      "features": {
+        "include": [
+          "bike_allowed"
+        ]
+      },
+      "timetables": [
+        {
+          "times": [
+            [
+              "S01",
+              "10:00:00",
+              "10:01:00"
+            ],
+            [
+              "S02",
+              "10:10:00",
+              "10:10:00"
+            ],
+            [
+              "S03",
+              "10:15:00",
+              "10:15:00"
+            ],
+            [
+              "S04",
+              "10:25:00",
+              "10:30:00"
+            ],
+            [
+              "S05",
+              "10:50:00",
+              "10:50:00"
+            ],
+            [
+              "S06",
+              "11:00:00",
+              "11:00:00"
+            ]
+          ]
+        },
+        {
+          "times": [
+            [
+              "S01",
+              "10:10:00",
+              "10:11:00"
+            ],
+            [
+              "S02",
+              "10:20:00",
+              "10:20:00"
+            ],
+            [
+              "S03",
+              "10:25:00",
+              "10:25:00"
+            ],
+            [
+              "S04",
+              "10:35:00",
+              "10:40:00"
+            ],
+            [
+              "S05",
+              "11:00:00",
+              "11:00:00"
+            ],
+            [
+              "S06",
+              "11:10:00",
+              "11:10:00"
+            ],
+            {
+              "stopID": "S07",
+              "arrival": "11:20:00",
+              "arrivalFeature": "noPickUp",
+              "departure": "11:20:00"
+            }
+          ]
+        },
+        {
+          "direction": "Short trip to city center",
+          "features": {
+            "include": [
+              "air_condition"
+            ],
+            "exclude": [
+              "bike_allow"
+            ]
+          },
+          "operationDays": {
+            "weekdays": [
+              "Sa",
+              "Su"
+            ]
+          },
+          "times": [
+            [
+              "S02",
+              "11:10:00",
+              "11:10:00"
+            ],
+            [
+              "S03",
+              "11:15:00",
+              "11:15:00"
+            ],
+            [
+              "S04",
+              "11:25:00",
+              "11:30:00"
+            ],
+            [
+              "S05",
+              "11:50:00",
+              "11:50:00"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "description": "From city center",
+      "timetables": [
+        {
+          "firstTrip": [
+            [
+              "S05",
+              "11:10:00",
+              "11:10:00"
+            ],
+            [
+              "S04",
+              "11:15:00",
+              "11:15:00"
+            ],
+            [
+              "S03",
+              "11:25:00",
+              "11:30:00"
+            ],
+            [
+              "S02",
+              "11:50:00",
+              "11:50:00"
+            ]
+          ],
+          "interval": 600,
+          "endTime": "20:00:00"
+        }
+      ]
+    }
+  ],
+  "graphics": "G01_R01.svg"
+}
 ```
-  {% endif %}
-{% endfor %}
+### #2
+```json
+{
+  "id": "R02",
+  "agency": "A01",
+  "name": "Route 02",
+  "description": "Route Two",
+  "lineColor": "#770077",
+  "fontColor": "#000000",
+  "vehicleType": "bus",
+  "features": [
+    "wheelchair_access",
+    "bike_allowed"
+  ],
+  "operationDays": {
+    "weekdays": [
+      "Mo",
+      "Tu",
+      "Fr"
+    ],
+    "include": [
+      "2023-02-28",
+      "2023-03-08"
+    ],
+    "exclude": [
+      "2023-02-27"
+    ]
+  },
+  "trips": [
+    {
+      "name": "Long trip",
+      "direction": "To city center",
+      "features": [
+        "bike_allowed"
+      ],
+      "timetables": [
+        {
+          "times": [
+            [
+              "S01",
+              "10:00:00",
+              "10:01:00"
+            ],
+            [
+              "S02",
+              "10:10:00",
+              "10:10:00"
+            ],
+            [
+              "S03",
+              "10:15:00",
+              "10:15:00"
+            ],
+            [
+              "S04",
+              "10:25:00",
+              "10:30:00"
+            ],
+            [
+              "S05",
+              "10:50:00",
+              "10:50:00"
+            ],
+            [
+              "S06",
+              "11:00:00",
+              "11:00:00"
+            ]
+          ]
+        },
+        {
+          "times": [
+            [
+              "S01",
+              "10:10:00",
+              "10:11:00"
+            ],
+            [
+              "S02",
+              "10:20:00",
+              "10:20:00"
+            ],
+            [
+              "S03",
+              "10:25:00",
+              "10:25:00"
+            ],
+            [
+              "S04",
+              "10:35:00",
+              "10:40:00"
+            ],
+            [
+              "S05",
+              "11:00:00",
+              "11:00:00"
+            ],
+            [
+              "S06",
+              "11:10:00",
+              "11:10:00"
+            ],
+            {
+              "stopID": "S07",
+              "arrival": "11:20:00",
+              "arrivalFeature": "noPickUp",
+              "departure": "11:20:00"
+            }
+          ]
+        },
+        {
+          "direction": "Short trip to city center",
+          "features": {
+            "include": [
+              "air_condition"
+            ],
+            "exclude": [
+              "bike_allowed"
+            ]
+          },
+          "operationDays": {
+            "weekdays": [
+              "Sa",
+              "Su"
+            ]
+          },
+          "times": [
+            [
+              "S02",
+              "11:10:00",
+              "11:10:00"
+            ],
+            [
+              "S03",
+              "11:15:00",
+              "11:15:00"
+            ],
+            [
+              "S04",
+              "11:25:00",
+              "11:30:00"
+            ],
+            [
+              "S05",
+              "11:50:00",
+              "11:50:00"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "description": "From city center",
+      "timetables": [
+        {
+          "firstTrip": [
+            [
+              "S05",
+              "11:10:00",
+              "11:10:00"
+            ],
+            [
+              "S04",
+              "11:15:00",
+              "11:15:00"
+            ],
+            [
+              "S03",
+              "11:25:00",
+              "11:30:00"
+            ],
+            [
+              "S02",
+              "11:50:00",
+              "11:50:00"
+            ]
+          ],
+          "interval": 600,
+          "endTime": "20:00:00"
+        }
+      ]
+    }
+  ]
+}
+```

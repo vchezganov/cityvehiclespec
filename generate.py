@@ -6,9 +6,13 @@ from urllib.parse import urlparse
 from dataclasses import dataclass
 from typing import Any, Optional, List, Dict
 
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 
-from mako.template import Template
-from mako.runtime import Context
+
+env = Environment(loader=FileSystemLoader('templates'),
+                  autoescape=select_autoescape(),
+                  trim_blocks=True)
+
 
 UNIQUE_ID = 0
 
@@ -214,17 +218,18 @@ def parse_ref(ref: str) -> Dict[str, Any]:
     stack = [definition_schema]
     while stack:
         current = stack.pop()
+
         if isinstance(current, dict):
             ref = current.get('$ref')
             if ref is not None and ref.startswith('#'):
                 current['$ref'] = f'{result.path}{ref}'
 
-            for data in current.values():
-                stack.append(data)
+            stack.extend(current.values())
+            continue
 
         if isinstance(current, list):
-            for data in current:
-                stack.append(data)
+            stack.extend(current)
+            continue
 
     sub_path = pathlib.PosixPath(result.fragment)
     data = None
@@ -236,6 +241,67 @@ def parse_ref(ref: str) -> Dict[str, Any]:
             data = data[key]
 
     return data
+
+
+
+
+
+
+
+
+
+
+
+
+
+def generate_final(folder_output: str, entity_name: str, description: str):
+    print('Rendering:', entity_name)
+    output_path = folder_output / f'{entity_name}.markdown'
+
+    # Loading entity schema
+    with open(pathlib.Path('schema') / f'{entity_name}.json', mode='r') as fin:
+        json_schema = json.load(fin)
+
+    entity_schema = json.dumps(json_schema, indent=2, ensure_ascii=False)
+
+    # Loading examples if any
+    folder_examples = pathlib.Path('examples') / entity_name
+    examples = []
+    if folder_examples.is_dir():
+        example_paths = [e for e in folder_examples.iterdir() if e.is_file() and e.suffix == '.json']
+        example_paths.sort()
+
+        for example_path in example_paths:
+            with open(example_path, mode='r') as fin:
+                json_example = json.load(fin)
+
+            text_example = json.dumps(json_example, indent=2, ensure_ascii=False)
+            examples.append(text_example)
+
+    try:
+        # Loading entity template
+        entity_template = env.get_template(f'{entity_name}.md')
+
+        ctx = {
+            'title': entity_name,
+            'permalink': entity_name,
+            'description': description,
+            'schema': entity_schema,
+            'examples': examples
+        }
+
+        # Rendering template
+        with open(output_path, mode='w') as fout:
+            entity_template.stream(ctx).dump(fout)
+    except Exception as ex:
+        print('Exception:', ex)
+
+
+
+
+
+
+
 
 
 ENTITIES = [
@@ -263,15 +329,7 @@ def generate_html(folder_schema: pathlib.Path,
 
         entity_path = folder_output / f'{entity_name}.markdown'
 
-
-
-        entity_template = Template(filename='templates/entity.html')
-
-        with open(entity_path, mode='w') as fout:
-            ctx = Context(fout,
-                          entity_name=entity_name,
-                          description=documentation)
-            entity_template.render_context(ctx)
+        generate_final(folder_output, entity_name, documentation)
 
         continue
 

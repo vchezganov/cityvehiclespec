@@ -8,9 +8,12 @@ permalink: /settings
 - [Schema](#schema)
 - [Examples](#examples)
 
-**Agency** entity presents information about certain provider. It could be
-a bus operator, a rail agency, or a mobility provider for shared vehicles.
+**Settings** contains information about data like version, validity, etc. In addition to that,
+there are settings for default language, default transfer times between trips,
+links for realtime data, etc.
 
+## Description
+<div class="main">
 
 <div class="field">
     <div>schemaVersion<br /><span class="required">required</span></div>
@@ -73,17 +76,82 @@ a bus operator, a rail agency, or a mobility provider for shared vehicles.
     <div>Default transfer time between child stops</div>
 </div>
 
+</div>
 
+## Schema
 ```json
-{% include_relative data/schema/agencies.json -%}
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/vchezganov/cityjson/schema/settings.json",
+  "title": "Settings",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "description": "Version of the schema",
+      "type": "string"
+    },
+    "dataVersion": {
+      "description": "Version of the data",
+      "type": "string"
+    },
+    "name": {
+      "description": "Name of the data",
+      "type": "string"
+    },
+    "language": {
+      "description": "Default language of the data",
+      "type": "string"
+    },
+    "validity": {
+      "description": "Validity of the data",
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "string",
+          "format": "date"
+        },
+        "to": {
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "required": [
+        "from",
+        "to"
+      ]
+    },
+    "sameStopTransferTime": {
+      "description": "Default transfer time on the same stop",
+      "type": "integer"
+    },
+    "childStopTransferTime": {
+      "description": "Default transfer time between child stops",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "dataVersion",
+    "language",
+    "validity",
+    "sameStopTransferTime",
+    "childStopTransferTime"
+  ]
+}
 ```
 
-{% assign counter = 0 %}
-{% for ex in site.static_files %}
-  {% if ex.path contains 'examples/agencies' %}
-  {% assign counter = counter | plus: 1 %}
+## Examples
+### #1
 ```json
-{% include_relative {{ ex.path }} -%}
+{
+  "schemaVersion": "0.1.0",
+  "dataVersion": "0.1.0",
+  "language": "en",
+  "validity": {
+    "from": "2023-01-01",
+    "to": "2023-12-31"
+  },
+  "sameStopTransferTime": 120,
+  "childStopTransferTime": 240
+}
 ```
-  {% endif %}
-{% endfor %}

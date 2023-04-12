@@ -25,16 +25,26 @@
             "oneOf": [
                 {
                     "description": "Main phone number of the agency",
-                    "type": "string"
+                    "type": "string",
+                    "examples": [
+                        {
+                            "phone": "+1234567890"
+                        }
+                    ]
                 },
                 {
                     "type": "array",
                     "items": {
+                        "description": "Various phone number of the agency",
                         "type": "object",
                         "properties": {
                             "phoneType": {
                                 "description": "Type of the phone (support, information, etc)",
-                                "enum": ["main", "support", "information"]
+                                "enum": [
+                                    "main",
+                                    "support",
+                                    "information"
+                                ]
                             },
                             "value": {
                                 "description": "Phone number",
@@ -64,7 +74,11 @@
                         "properties": {
                             "emailType": {
                                 "description": "Type of the email (support, information, etc)",
-                                "enum": ["main", "support", "information"]
+                                "enum": [
+                                    "main",
+                                    "support",
+                                    "information"
+                                ]
                             },
                             "value": {
                                 "description": "Email address",

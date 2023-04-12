@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Agencies
+title: Agency
 permalink: /agencies
 ---
 
@@ -11,6 +11,8 @@ permalink: /agencies
 **Agency** entity presents information about certain provider. It could be
 a bus operator, a rail agency, or a mobility provider for shared vehicles.
 
+## Description
+<div class="main">
 
 <div class="field">
     <div>id<br /><span class="required">required</span></div>
@@ -288,17 +290,180 @@ information
     <div>Default language for the agency</div>
 </div>
 
+</div>
 
+## Schema
 ```json
-{% include_relative data/schema/agencies.json -%}
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/vchezganov/cityjson/schema/agencies.json",
+  "title": "Agency",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "The unique identifier for an agency",
+      "type": "string"
+    },
+    "name": {
+      "description": "Name of the agency",
+      "$ref": "definitions.json#/$defs/translation"
+    },
+    "description": {
+      "description": "Description of the agency",
+      "$ref": "definitions.json#/$defs/translation"
+    },
+    "web": {
+      "description": "Website of the agency",
+      "type": "string"
+    },
+    "phone": {
+      "description": "Phone number(s) of the agency",
+      "oneOf": [
+        {
+          "description": "Main phone number of the agency",
+          "type": "string",
+          "examples": [
+            {
+              "phone": "+1234567890"
+            }
+          ]
+        },
+        {
+          "type": "array",
+          "items": {
+            "description": "Various phone number of the agency",
+            "type": "object",
+            "properties": {
+              "phoneType": {
+                "description": "Type of the phone (support, information, etc)",
+                "enum": [
+                  "main",
+                  "support",
+                  "information"
+                ]
+              },
+              "value": {
+                "description": "Phone number",
+                "type": "string"
+              }
+            },
+            "required": [
+              "phoneType",
+              "value"
+            ],
+            "uniqueItems": true
+          }
+        }
+      ]
+    },
+    "email": {
+      "description": "Email address(es) of the agency",
+      "oneOf": [
+        {
+          "description": "Main email address of the agency",
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "emailType": {
+                "description": "Type of the email (support, information, etc)",
+                "enum": [
+                  "main",
+                  "support",
+                  "information"
+                ]
+              },
+              "value": {
+                "description": "Email address",
+                "type": "string"
+              }
+            },
+            "required": [
+              "emailType",
+              "value"
+            ],
+            "uniqueItems": true
+          }
+        }
+      ]
+    },
+    "timezone": {
+      "description": "Timezone where the agency operates and that is used for timetables",
+      "type": "string"
+    },
+    "loc": {
+      "description": "Location of the agency",
+      "$ref": "definitions.json#/$defs/location"
+    },
+    "icon": {
+      "description": "Icon for the agency in base64 format",
+      "type": "string"
+    },
+    "language": {
+      "description": "Default language for the agency",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "language"
+  ]
+}
 ```
 
-{% assign counter = 0 %}
-{% for ex in site.static_files %}
-  {% if ex.path contains 'examples/agencies' %}
-  {% assign counter = counter | plus: 1 %}
+## Examples
+### #1
 ```json
-{% include_relative {{ ex.path }} -%}
+{
+  "id": "A01",
+  "name": "Agency 01",
+  "language": "en"
+}
 ```
-  {% endif %}
-{% endfor %}
+### #2
+```json
+{
+  "id": "A02",
+  "name": "Agency 02",
+  "language": "en-US",
+  "phone": [
+    {
+      "phoneType": "information",
+      "value": "54321"
+    },
+    {
+      "phoneType": "support",
+      "value": "12345"
+    }
+  ]
+}
+```
+### #3
+```json
+{
+  "id": "A03",
+  "name": {
+    "en": "Agency 03",
+    "de": "Verkehrsbetriebe 03"
+  },
+  "language": "de",
+  "phone": [
+    {
+      "phoneType": "information",
+      "value": "54321"
+    },
+    {
+      "phoneType": "support",
+      "value": "12345"
+    }
+  ],
+  "loc": [
+    52.525517,
+    13.4153366
+  ]
+}
+```

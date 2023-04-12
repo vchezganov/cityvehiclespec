@@ -30,7 +30,10 @@
         },
         "vehicleType": {
             "description": "Vehicle type of the route",
-            "type": ["string", "number"]
+            "type": [
+                "string",
+                "number"
+            ]
         },
         "features": {
             "description": "Features of the trip.",
@@ -106,7 +109,9 @@
                                             }
                                         }
                                     },
-                                    "required": ["times"]
+                                    "required": [
+                                        "times"
+                                    ]
                                 },
                                 {
                                     "type": "object",
@@ -121,13 +126,19 @@
                                             "type": "string"
                                         }
                                     },
-                                    "required": ["firstTrip", "interval", "endTime"]
+                                    "required": [
+                                        "firstTrip",
+                                        "interval",
+                                        "endTime"
+                                    ]
                                 }
                             ]
                         }
                     }
                 },
-                "required": ["timetables"]
+                "required": [
+                    "timetables"
+                ]
             }
         }
     },

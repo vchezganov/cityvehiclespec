@@ -27,16 +27,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Copy Schemas and Examples
-        run: |
-          mkdir "./docs/data"
-          cp -r "./schema" "./docs/data"
-          cp -r "./examples" "./docs/data"
+      # - name: Copy Schemas and Examples
+      #   run: |
+      #     mkdir "./docs/data"
+      #     cp -r "./schema" "./docs/data"
+      #     cp -r "./examples" "./docs/data"
+
+      # - name: Generate documentation
+      #   run: |
+      #     mkdir -p "./docs/_includes"
+      #     python3 generate.py --output "./docs/_includes" --nohtml
 
       - name: Generate documentation
         run: |
-          mkdir -p "./docs/_includes"
-          python3 generate.py --output "./docs/_includes" --nohtml
+          pip install jinja2
+          python3 generate.py --output "./docs"
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
