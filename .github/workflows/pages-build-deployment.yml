@@ -40,7 +40,6 @@ jobs:
 
       - name: Generate documentation
         run: |
-          pip install jinja2
           python3 generate.py --output "./docs"
 
       - name: Setup Pages

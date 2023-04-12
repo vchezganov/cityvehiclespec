@@ -2,6 +2,7 @@ import argparse
 import pathlib
 import json
 import yaml
+import functools
 from urllib.parse import urlparse
 from dataclasses import dataclass
 from typing import Any, Optional, List, Dict
@@ -208,11 +209,9 @@ def render_field(field_name: str,
                       examples=examples)
 
 
-def parse_ref(ref: str) -> Dict[str, Any]:
-    result = urlparse(ref)
-    folder_schema = pathlib.Path('schema')
-
-    with open(folder_schema / result.path, mode='r') as fin:
+@functools.cache
+def load_ref(folder_path: str, schema_path: str) -> Dict[str, Any]:
+    with open(pathlib.Path(folder_path) / schema_path, mode='r') as fin:
         definition_schema = json.load(fin)
 
     stack = [definition_schema]
@@ -222,7 +221,7 @@ def parse_ref(ref: str) -> Dict[str, Any]:
         if isinstance(current, dict):
             ref = current.get('$ref')
             if ref is not None and ref.startswith('#'):
-                current['$ref'] = f'{result.path}{ref}'
+                current['$ref'] = f'{schema_path}{ref}'
 
             stack.extend(current.values())
             continue
@@ -230,6 +229,14 @@ def parse_ref(ref: str) -> Dict[str, Any]:
         if isinstance(current, list):
             stack.extend(current)
             continue
+
+    return definition_schema
+
+
+@functools.cache
+def parse_ref(ref: str) -> Dict[str, Any]:
+    result = urlparse(ref)
+    definition_schema = load_ref('schema', result.path)
 
     sub_path = pathlib.PosixPath(result.fragment)
     data = None
