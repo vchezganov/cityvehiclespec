@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 jsonschema = "*"
 pyyaml = "*"
+jinja2 = "*"
+mako = "*"
 
 [dev-packages]
 

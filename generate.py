@@ -7,6 +7,9 @@ from dataclasses import dataclass
 from typing import Any, Optional, List, Dict
 
 
+from mako.template import Template
+from mako.runtime import Context
+
 UNIQUE_ID = 0
 
 
@@ -257,6 +260,21 @@ def generate_html(folder_schema: pathlib.Path,
 
         render_data = render_field(entity_name, entity_schema, True)
         documentation = render_data.render(render_itself=False)
+
+        entity_path = folder_output / f'{entity_name}.markdown'
+
+
+
+        entity_template = Template(filename='templates/entity.html')
+
+        with open(entity_path, mode='w') as fout:
+            ctx = Context(fout,
+                          entity_name=entity_name,
+                          description=documentation)
+            entity_template.render_context(ctx)
+
+        continue
+
 
         entity_path = folder_output / f'{entity_name}.html'
 
