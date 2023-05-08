@@ -1,30 +1,30 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://github.com/vchezganov/cityjson/schema/agencies.json",
-    "title": "Agency",
+    "$id": "https://github.com/vchezganov/cityjson/schema/operator.json",
+    "title": "Operator",
     "type": "object",
     "properties": {
         "id": {
-            "description": "The unique identifier for an agency",
+            "description": "The unique identifier for an operator",
             "type": "string"
         },
         "name": {
-            "description": "Name of the agency",
+            "description": "Name of the operator",
             "$ref": "definitions.json#/$defs/translation"
         },
         "description": {
-            "description": "Description of the agency",
+            "description": "Description of the operator",
             "$ref": "definitions.json#/$defs/translation"
         },
         "web": {
-            "description": "Website of the agency",
+            "description": "Website of the operator",
             "type": "string"
         },
         "phone": {
-            "description": "Phone number(s) of the agency",
+            "description": "Phone number(s) of the operator",
             "oneOf": [
                 {
-                    "description": "Main phone number of the agency",
+                    "description": "Main phone number of the operator",
                     "type": "string",
                     "examples": [
                         {
@@ -35,7 +35,7 @@
                 {
                     "type": "array",
                     "items": {
-                        "description": "Various phone number of the agency",
+                        "description": "Various phone number of the operator",
                         "type": "object",
                         "properties": {
                             "phoneType": {
@@ -55,16 +55,30 @@
                             "phoneType",
                             "value"
                         ],
-                        "uniqueItems": true
+                        "uniqueItems": true,
+                        "examples": [
+                            {
+                                "phone": [
+                                    {
+                                        "phoneType": "support",
+                                        "value": "+1234567890"
+                                    },
+                                    {
+                                        "phoneType": "information",
+                                        "value": "+0987654321"
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 }
             ]
         },
         "email": {
-            "description": "Email address(es) of the agency",
+            "description": "Email address(es) of the operator",
             "oneOf": [
                 {
-                    "description": "Main email address of the agency",
+                    "description": "Main email address of the operator",
                     "type": "string"
                 },
                 {
@@ -95,19 +109,19 @@
             ]
         },
         "timezone": {
-            "description": "Timezone where the agency operates and that is used for timetables",
+            "description": "Timezone where the operator operates and that is used for timetables",
             "type": "string"
         },
         "loc": {
-            "description": "Location of the agency",
+            "description": "Location of the operator",
             "$ref": "definitions.json#/$defs/location"
         },
         "icon": {
-            "description": "Icon for the agency in base64 format",
+            "description": "Icon for the operator in base64 format",
             "type": "string"
         },
         "language": {
-            "description": "Default language for the agency",
+            "description": "Default language for the operator",
             "type": "string"
         }
     },

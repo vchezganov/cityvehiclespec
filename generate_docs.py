@@ -55,10 +55,11 @@ class RenderData:
 
         if (examples := self.examples) is not None:
             for example in examples:
+                tmp = json.dumps(example, ensure_ascii=False, indent=2)
                 description += f'''
 <div markdown="1">
 ```json
-{example.strip()}
+{tmp.strip()}
 ```
 </div>
                 '''
@@ -256,23 +257,44 @@ def parse_ref(ref: str) -> Dict[str, Any]:
 
 
 
+CUSTOM_KEYS = {'examples'}
 
 
+def remove_custom_keys_in_place(data):
+    stack = [data]
+    while stack:
+        current = stack.pop()
+
+        if isinstance(current, list):
+            stack.extend(current)
+            continue
+
+        if isinstance(current, dict):
+            custom_keys = [k for k in current if k in CUSTOM_KEYS]
+            for k in custom_keys:
+                del current[k]
+
+            stack.extend(current.values())
+            continue
 
 
-
-def generate_final(folder_output: str, entity_name: str, description: str):
+def generate_template(folder_schema: pathlib.Path,
+                      folder_example: pathlib.Path,
+                      folder_output: pathlib.Path,
+                      entity_name: str,
+                      description: str):
     print('Rendering:', entity_name)
     output_path = folder_output / f'{entity_name}.markdown'
 
     # Loading entity schema
-    with open(pathlib.Path('schema') / f'{entity_name}.json', mode='r') as fin:
+    with open(folder_schema / f'{entity_name}.json', mode='r') as fin:
         json_schema = json.load(fin)
 
+    remove_custom_keys_in_place(json_schema)
     entity_schema = json.dumps(json_schema, indent=2, ensure_ascii=False)
 
     # Loading examples if any
-    folder_examples = pathlib.Path('examples') / entity_name
+    folder_examples = folder_example / entity_name
     examples = []
     if folder_examples.is_dir():
         example_paths = [e for e in folder_examples.iterdir() if e.is_file() and e.suffix == '.json']
@@ -313,65 +335,70 @@ def generate_final(folder_output: str, entity_name: str, description: str):
 
 ENTITIES = [
     'settings',
-    'agencies',
-    'stops',
-    'routes',
-    'footpaths',
-    'translations',
-    'graphics'
+    'operator',
+    'place',
+    'route',
+    'footpath',
+    'translation',
+    'graphic'
 ]
 
 
-def generate_html(folder_schema: pathlib.Path,
+def generate_docs(folder_schema: pathlib.Path,
+                  folder_example: pathlib.Path,
                   folder_output: pathlib.Path,
                   nohtml: bool = False):
     for entity_name in ENTITIES:
-        # with open(folder_schema / f'{entity_name}.json', mode='r') as fin:
-        #     entity_schema = json.load(fin)
-        with open(folder_schema / f'{entity_name}.yml', mode='r') as fin:
-            entity_schema = yaml.load(fin, yaml.CLoader)
+        with open(folder_schema / f'{entity_name}.json', mode='r') as fin:
+            entity_schema = json.load(fin)
 
         render_data = render_field(entity_name, entity_schema, True)
         documentation = render_data.render(render_itself=False)
 
-        entity_path = folder_output / f'{entity_name}.markdown'
+        generate_template(folder_schema, folder_example, folder_output, entity_name, documentation)
 
-        generate_final(folder_output, entity_name, documentation)
-
-        continue
+#         continue
 
 
-        entity_path = folder_output / f'{entity_name}.html'
+#         entity_path = folder_output / f'{entity_name}.html'
 
-        with open(entity_path, mode='w') as fout:
-            if not nohtml:
-                fout.write('''
-<html>
-<head>
-    <link rel="stylesheet" type="text/css" href="static/style.css">
+#         with open(entity_path, mode='w') as fout:
+#             if not nohtml:
+#                 fout.write('''
+# <html>
+# <head>
+#     <link rel="stylesheet" type="text/css" href="static/style.css">
 
-    <script type="text/javascript" src="static/script.js"></script>
-</head>
-<body>
-''')
+#     <script type="text/javascript" src="static/script.js"></script>
+# </head>
+# <body>
+# ''')
 
-            fout.write('<div class="main">')
-            fout.write(documentation)
-            fout.write('</div>')
+#             fout.write('<div class="main">')
+#             fout.write(documentation)
+#             fout.write('</div>')
 
-            if not nohtml:
-                fout.write('''
-</body>
-</html>
-''')
+#             if not nohtml:
+#                 fout.write('''
+# </body>
+# </html>
+# ''')
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(prog='jsonschema2doc',
                                      description='Generating documentation out of JSON schema')
 
+    parser.add_argument('--schema',
+                        required=True,
+                        help='Schema folder')
+
+    parser.add_argument('--example',
+                        required=True,
+                        help='Example folder')
+
     parser.add_argument('--output',
-                        default='documentation',
+                        required=True,
                         help='Output folder')
 
     parser.add_argument('--nohtml',
@@ -381,5 +408,4 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    # generate_html(pathlib.Path('schema'), pathlib.Path(args.output), args.nohtml)
-    generate_html(pathlib.Path('schema_yaml'), pathlib.Path(args.output), args.nohtml)
+    generate_docs(pathlib.Path(args.schema), pathlib.Path(args.example), pathlib.Path(args.output), args.nohtml)

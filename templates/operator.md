@@ -1,10 +1,10 @@
 {% extends "base.md" %}
 
 {% block title %}
-Agency
+Operator
 {% endblock %}
 
 {% block head %}
-**Agency** entity presents information about certain provider. It could be
+**Operator** entity presents information about certain agency or provider. It could be
 a bus operator, a rail agency, or a mobility provider for shared vehicles.
 {% endblock %}

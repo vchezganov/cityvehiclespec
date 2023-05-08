@@ -1,3 +1,5 @@
+# Script to generate JSON schemas from YAML schemas
+
 import json
 import yaml
 from pathlib import Path
@@ -6,12 +8,12 @@ from pathlib import Path
 ENTITIES = [
     'definitions',
     'settings',
-    'agencies',
-    'footpaths',
-    'graphics',
-    'routes',
-    'stops',
-    'translations',
+    'operator',
+    'place',
+    'route',
+    'footpath',
+    'graphic',
+    'translation',
 ]
 CUSTOM_KEYS = {'examples'}
 

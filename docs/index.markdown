@@ -19,6 +19,6 @@ It also allows to validate entities for basic errors.
 - [File structure](./structure.markdown)
 - [Data settings](./settings.markdown)
 - Entities
-  - [Agency](./agencies.markdown)
-  - [Stop](./stops.markdown)
-  - [Route](./routes.markdown)
+  - [Operator](./operator.markdown)
+  - [Place](./place.markdown)
+  - [Route](./route.markdown)

@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://github.com/vchezganov/cityjson/schema/graphics.json",
-    "title": "Graphics",
+    "$id": "https://github.com/vchezganov/cityjson/schema/graphic.json",
+    "title": "Graphic",
     "type": "object",
     "properties": {
         "id": {

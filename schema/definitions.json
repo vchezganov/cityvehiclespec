@@ -8,16 +8,19 @@
             "minimum": -180,
             "maximum": 180
         },
+
         "latitude": {
             "description": "Latitude",
             "type": "number",
             "minimum": -90,
             "maximum": 90
         },
+
         "altitude": {
             "description": "Altitude in meters",
             "type": "number"
         },
+
         "location": {
             "description": "Geographical location of longitude, latitude and optional altitude",
             "oneOf": [
@@ -59,28 +62,32 @@
                 }
             ]
         },
+
         "time24": {
             "description": "Time in 24 hours format.",
             "type": "string"
         },
+
         "color": {
             "description": "Color in HEX format",
             "type": "string",
             "pattern": "^#[0-9a-fA-F]{6}$"
         },
+
         "translation": {
             "oneOf": [
                 {
-                    "description": "Text in agency's language. Translation can be specified using Translation entities.",
+                    "description": "Text in main language. Translation can be specified using Translation entities.",
                     "type": "string"
                 },
                 {
-                    "description": "Texts for different languages. Agency's language must be present.",
+                    "description": "Texts for different languages.",
                     "type": "object"
                 }
             ]
         },
-        "stopFeaturesList": {
+
+        "placeFeaturesList": {
             "type": "array",
             "items": {
                 "enum": [
@@ -91,30 +98,32 @@
                 ]
             }
         },
-        "stopFeatures": {
-            "description": "Stop features.",
+
+        "placeFeatures": {
+            "description": "Place features.",
             "oneOf": [
                 {
-                    "description": "List of stop features.",
-                    "$ref": "#/$defs/stopFeaturesList"
+                    "description": "List of place features.",
+                    "$ref": "#/$defs/placeFeaturesList"
                 },
                 {
-                    "description": "Stop features to be additionally included or excluded to inherited ones.",
+                    "description": "Place features to be additionally included or excluded to inherited ones.",
                     "type": "object",
                     "properties": {
                         "include": {
                             "description": "Features to be included additionally to inherited ones.",
-                            "$ref": "#/$defs/stopFeaturesList"
+                            "$ref": "#/$defs/placeFeaturesList"
                         },
                         "exclude": {
                             "description": "Features to be excluded additionally to inherited ones.",
-                            "$ref": "#/$defs/stopFeaturesList"
+                            "$ref": "#/$defs/placeFeaturesList"
                         }
                     },
                     "additionalProperties": false
                 }
             ]
         },
+
         "routeFeaturesList": {
             "type": "array",
             "items": {
@@ -125,6 +134,7 @@
                 ]
             }
         },
+
         "routeFeatures": {
             "oneOf": [
                 {
@@ -148,6 +158,7 @@
                 }
             ]
         },
+
         "graphics": {
             "oneOf": [
                 {
@@ -178,6 +189,7 @@
                 }
             ]
         },
+
         "operationDays": {
             "description": "Operation days of the route",
             "type": "object",

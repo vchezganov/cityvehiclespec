@@ -57,6 +57,6 @@ plugins:
 header_pages:
   - structure.markdown
   - settings.markdown
-  - agencies.markdown
+  - operator.markdown
   - stops.markdown
   - routes.markdown

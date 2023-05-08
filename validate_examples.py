@@ -1,3 +1,5 @@
+# Script to validate examples according schema definitions
+
 import pathlib
 import json
 import jsonschema
@@ -48,6 +50,6 @@ def validate_examples(entity_name: str):
 
 
 if __name__ == '__main__':
-    for entity_name in ('settings', 'agencies', 'stops', 'routes'):
+    for entity_name in ('settings', 'operator', 'place', 'route', 'translation'):
         print('Validating', entity_name)
         validate_examples(entity_name)

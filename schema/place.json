@@ -1,39 +1,39 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://github.com/vchezganov/cityjson/schema/stops.json",
-    "title": "Stop",
+    "$id": "https://github.com/vchezganov/cityjson/schema/place.json",
+    "title": "Place",
     "type": "object",
     "properties": {
         "id": {
-            "description": "Unique identifier for the stop",
+            "description": "Unique identifier for the place",
             "type": "string"
         },
         "name": {
-            "description": "Name of the stop",
+            "description": "Name of the place",
             "$ref": "definitions.json#/$defs/translation"
         },
         "description": {
-            "description": "Description of the stop",
+            "description": "Description of the place",
             "$ref": "definitions.json#/$defs/translation"
         },
         "loc": {
-            "description": "Location of the stop",
+            "description": "Location of the place",
             "$ref": "definitions.json#/$defs/location"
         },
         "web": {
-            "description": "Website of the stop",
+            "description": "Website of the place",
             "type": "string"
         },
         "features": {
-            "description": "Features of the stop. All access points and child stops, if any, inherit these features.",
-            "$ref": "definitions.json#/$defs/stopFeatures"
+            "description": "Features of the place. All access points and child places, if any, inherit these features.",
+            "$ref": "definitions.json#/$defs/placeFeatures"
         },
         "timezone": {
             "description": "Timezone where the agency operates and that is used for timetables",
             "type": "string"
         },
         "accessPoints": {
-            "description": "Access points of the stop",
+            "description": "Access points of the place",
             "type": "array",
             "items": {
                 "type": "object",
@@ -51,8 +51,8 @@
                         "$ref": "definitions.json#/$defs/location"
                     },
                     "features": {
-                        "description": "Features of the access point (additionally to inherited from the parent stop)",
-                        "$ref": "definitions.json#/$defs/stopFeatures"
+                        "description": "Features of the access point (additionally to inherited from the parent place)",
+                        "$ref": "definitions.json#/$defs/placeFeatures"
                     }
                 },
                 "required": [
@@ -62,8 +62,8 @@
                 ]
             }
         },
-        "childStops": {
-            "description": "Child stops of the stop",
+        "childPlaces": {
+            "description": "Child places of the place",
             "type": "array",
             "items": {
                 "type": "object",
@@ -81,8 +81,8 @@
                         "$ref": "definitions.json#/$defs/location"
                     },
                     "features": {
-                        "description": "Features of the child point (additionally to inherited from the parent stop)",
-                        "$ref": "definitions.json#/$defs/stopFeatures"
+                        "description": "Features of the child point (additionally to inherited from the parent place)",
+                        "$ref": "definitions.json#/$defs/placeFeatures"
                     }
                 },
                 "required": [
