@@ -1,9 +1,8 @@
 .main {
-    /* width: 60%; */
-    /* margin: auto; */
-    font-family: monospace;
+    font-size: 0.8em;
     margin-bottom: 1.5em;
 }
+
 .code {
     font-family: 'Courier New', Courier, monospace;
 }
@@ -41,22 +40,18 @@
 
 .field > div:first-child {
     flex: 1 1 0px;
+    font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
 }
 
 .field > div:nth-child(2) {
     flex: 1 1 0px;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .field > div:nth-child(3) {
     flex: 5 1 0px;
-    font-family: regular;
 }
-
-/* .field > div:nth-child(4) {
-    flex: 5 1 0px;
-    font-family: regular;
-} */
 
 .shift {
     margin-left: 2em;

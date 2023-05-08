@@ -17,11 +17,6 @@ permalink: /{{ permalink }}
 {{ description }}
 </div>
 
-## Schema
-```json
-{{ schema }}
-```
-
 {% if examples %}
 ## Examples
 {% for example in examples %}
@@ -31,3 +26,8 @@ permalink: /{{ permalink }}
 ```
 {% endfor %}
 {% endif %}
+
+## Schema
+```json
+{{ schema }}
+```

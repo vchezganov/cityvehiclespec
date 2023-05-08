@@ -58,5 +58,5 @@ header_pages:
   - structure.markdown
   - settings.markdown
   - operator.markdown
-  - stops.markdown
-  - routes.markdown
+  - place.markdown
+  - route.markdown
