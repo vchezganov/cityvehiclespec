@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://github.com/vchezganov/cityjson/schema/footpath.json",
+    "$id": "https://github.com/vchezganov/cityvehiclespec/schema/footpath.json",
     "title": "Footpath",
     "type": "object",
     "properties": {

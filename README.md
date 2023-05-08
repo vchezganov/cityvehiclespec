@@ -1,11 +1,11 @@
-# CityJSON
+# CityVehicleSpec
 
-**CityJSON** is the specification for public transit data (stops, routes, timetables, etc) and mobility data (personal or shared scooters, bikes, cars, etc).
+**CityVehicleSpec** is the specification for public transit data (stops, routes, timetables, etc) and mobility data (personal or shared scooters, bikes, cars, etc).
 It is an attempt to improve and join two specifications GTFS and GBFS into one.
 
 # Specification
 
-Full specification can be found under [https://vchezganov.github.io/cityjson/](https://vchezganov.github.io/cityjson/).
+Full specification can be found under [https://vchezganov.github.io/cityvehiclespec/](https://vchezganov.github.io/cityvehiclespec/).
 
 # Remarks
 
@@ -23,4 +23,4 @@ Fill free to contribute any improvements, fixes or extensions.
 
 ### Tools
 - Validation script
-- Converter from GTFS to CityJSON
+- Converter from GTFS to CityVehicleSpec

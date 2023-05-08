@@ -10,7 +10,7 @@ def validate_examples(entity_name: str):
     # resolver = jsonschema.validators.RefResolver(base_uri=f'{path_root.as_uri()}/',
     #                                              referrer=True)
 
-    # resolver = jsonschema.validators.RefResolver(base_uri='https://github.com/vchezganov/cityjson/',
+    # resolver = jsonschema.validators.RefResolver(base_uri='https://github.com/vchezganov/cityvehiclespec/',
     #                                              referrer=True)
 
     folder_schema = pathlib.Path('schema')
@@ -26,7 +26,7 @@ def validate_examples(entity_name: str):
         entity_schema['$id']: entity_schema,
     }
 
-    resolver = jsonschema.RefResolver(base_uri='https://github.com/vchezganov/cityjson/schema/',
+    resolver = jsonschema.RefResolver(base_uri='https://github.com/vchezganov/cityvehiclespec/schema/',
                                       referrer=True,
                                       store=store)
 

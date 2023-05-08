@@ -3,7 +3,7 @@ layout: page
 permalink: /
 ---
 
-**CityJSON** is the specification for _public transit_ data (stops, routes, timetables, etc)
+**CityVehicleSpec** is the specification for _public transit_ data (stops, routes, timetables, etc)
 and _mobility_ data (personal or shared scooters, bikes, cars, etc). It is an attempt
 to improve and join two specifications
 [GTFS](https://developers.google.com/transit/gtfs/reference){:target="_blank"} and

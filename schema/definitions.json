@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://github.com/vchezganov/cityjson/schema/definitions.json",
+    "$id": "https://github.com/vchezganov/cityvehiclespec/schema/definitions.json",
     "$defs": {
         "longitude": {
             "description": "Longitude",
