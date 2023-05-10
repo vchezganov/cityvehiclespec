@@ -5,26 +5,51 @@
     "type": "object",
     "properties": {
         "id": {
-            "description": "The unique identifier for an operator",
+            "description": "The unique identifier for an operator.",
             "type": "string"
         },
+
         "name": {
-            "description": "Name of the operator",
-            "$ref": "definitions.json#/$defs/translation"
+            "description": "Name of the operator.",
+            "$ref": "definitions.json#/$defs/translation",
+            "examples": [
+                {
+                    "name": "Operator One"
+                },
+                {
+                    "name": {
+                        "en": "Operator One",
+                        "de": "Operator Eins"
+                    }
+                }
+            ]
         },
+
         "description": {
-            "description": "Description of the operator",
+            "description": "Description of the operator.",
             "$ref": "definitions.json#/$defs/translation"
         },
-        "web": {
-            "description": "Website of the operator",
+
+        "language": {
+            "description": "Default language for the operator. It should be used by default in responses if no specific language is requested, or if there are no translations for the requested language.",
             "type": "string"
         },
+
+        "timezone": {
+            "description": "Timezone where the operator operates. All route timetable times, that belong to the operator, are defined in this timezone.",
+            "type": "string"
+        },
+
+        "web": {
+            "description": "Website of the operator.",
+            "type": "string"
+        },
+
         "phone": {
-            "description": "Phone number(s) of the operator",
+            "description": "Phone number(s) of the operator.",
             "oneOf": [
                 {
-                    "description": "Main phone number of the operator",
+                    "description": "Defines only one main phone number of the operator.",
                     "type": "string",
                     "examples": [
                         {
@@ -35,11 +60,11 @@
                 {
                     "type": "array",
                     "items": {
-                        "description": "Various phone number of the operator",
+                        "description": "Defines various phone numbers of the operator.",
                         "type": "object",
                         "properties": {
                             "phoneType": {
-                                "description": "Type of the phone (support, information, etc)",
+                                "description": "Type of the phone number.",
                                 "enum": [
                                     "main",
                                     "support",
@@ -47,7 +72,7 @@
                                 ]
                             },
                             "value": {
-                                "description": "Phone number",
+                                "description": "Phone number.",
                                 "type": "string"
                             }
                         },
@@ -74,20 +99,22 @@
                 }
             ]
         },
+
         "email": {
-            "description": "Email address(es) of the operator",
+            "description": "Email address(es) of the operator.",
             "oneOf": [
                 {
-                    "description": "Main email address of the operator",
+                    "description": "Defines only one main email address of the operator.",
                     "type": "string"
                 },
                 {
                     "type": "array",
                     "items": {
+                        "description": "Defines various email addresses of the operator.",
                         "type": "object",
                         "properties": {
                             "emailType": {
-                                "description": "Type of the email (support, information, etc)",
+                                "description": "Type of the email.",
                                 "enum": [
                                     "main",
                                     "support",
@@ -95,7 +122,7 @@
                                 ]
                             },
                             "value": {
-                                "description": "Email address",
+                                "description": "Email address.",
                                 "type": "string"
                             }
                         },
@@ -108,26 +135,30 @@
                 }
             ]
         },
-        "timezone": {
-            "description": "Timezone where the operator operates and that is used for timetables",
-            "type": "string"
-        },
+
         "loc": {
-            "description": "Location of the operator",
+            "description": "Location of the operator.",
             "$ref": "definitions.json#/$defs/location"
         },
-        "icon": {
-            "description": "Icon for the operator in base64 format",
-            "type": "string"
-        },
-        "language": {
-            "description": "Default language for the operator",
-            "type": "string"
+
+        "graphicIcon": {
+            "description": "Graphic identifier or relative path (with or without extension) to a graphic file defining an icon for the operator.",
+            "type": "string",
+            "examples": [
+                {
+                    "graphicIcon": "graphic_operator_abc"
+                },
+                {
+                    "graphicIcon": "graphic/operator_abc.svg"
+                }
+            ]
         }
     },
+
     "required": [
         "id",
         "name",
-        "language"
+        "language",
+        "timezone"
     ]
 }

@@ -4,3 +4,11 @@ _site
 .jekyll-metadata
 vendor
 data
+
+/settings.markdown
+/operator.markdown
+/place.markdown
+/route.markdown
+/graphic.markdown
+/translation.markdown
+/footpath.markdown

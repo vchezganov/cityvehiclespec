@@ -6,31 +6,35 @@ permalink: /structure
 
 All files should be located in a folder or in a ZIP archive, and follow the structure:
 ```
+settings.json
 operator.json
 operator/
-├── operator_foo.json
-├── bar_operator.json
+├── operator_one.json
+├── operator_two.json
 │   ...
-└── another.json
+└── operator_n.json
 place.json
 place/
 ├── place_foo.json
-├── bar_stop.json
-├── city_one/
+├── place_bar.json
+├── berlin/
+│   ├── stop_a.json
+│   └── stop_b.json
+├── hamburg/
 │   ├── stop_a.json
 │   └── stop_b.json
 │   ...
-└── another.json
+└── place_another.json
 route.json
 route/
-├── route_foo.json
-├── bar_route.json
+├── route_0.json
+├── route_1.json
 │   ...
-└── another.json
+└── route_X1.json
 ...
 ```
 
-Every entity could be presented either in the correspondig root JSON file together with another entities,
+Every entity (except `settings.json`) could be presented either in the corresponding root JSON file together with another entities,
 or separately in the own JSON file inside the corresponding entity's subfolder. JSON files in the entity's
 subfolder can be additionaly grouped using subfolders, for example, by location name, operator, or any other
 logic grouping.

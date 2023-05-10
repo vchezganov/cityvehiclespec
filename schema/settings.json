@@ -5,23 +5,27 @@
     "type": "object",
     "properties": {
         "schemaVersion": {
-            "description": "Version of the schema",
+            "description": "Version of the schema in X.Y.Z format.",
             "type": "string"
         },
+
         "dataVersion": {
-            "description": "Version of the data",
+            "description": "Version of the data in X.Y.Z format.",
             "type": "string"
         },
+
         "name": {
-            "description": "Name of the data",
+            "description": "Name of the data.",
             "type": "string"
         },
+
         "language": {
             "description": "Default language of the data",
             "type": "string"
         },
+
         "validity": {
-            "description": "Validity of the data",
+            "description": "Validity of the data.",
             "type": "object",
             "properties": {
                 "from": {
@@ -36,6 +40,14 @@
             "required": [
                 "from",
                 "to"
+            ],
+            "examples": [
+                {
+                    "validity": {
+                        "from": "2023-01-01",
+                        "to": "2023-12-31"
+                    }
+                }
             ]
         },
         "sameStopTransferTime": {
