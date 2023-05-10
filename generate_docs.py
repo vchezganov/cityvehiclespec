@@ -99,6 +99,8 @@ def render_field(field_name: str,
                  field_data: Dict[str, Any],
                  is_required: bool,
                  level: int = 0) -> RenderData:
+    if field_data is None or isinstance(field_data, str):
+        raise ValueError(field_name)
     field_type = field_data.get('type', 'unknown')
     description = field_data.get('description', '')
     examples = field_data.get('examples')
@@ -212,6 +214,7 @@ def render_field(field_name: str,
 
 @functools.cache
 def load_ref(folder_path: str, schema_path: str) -> Dict[str, Any]:
+
     with open(pathlib.Path(folder_path) / schema_path, mode='r') as fin:
         definition_schema = json.load(fin)
 
@@ -238,6 +241,9 @@ def load_ref(folder_path: str, schema_path: str) -> Dict[str, Any]:
 def parse_ref(ref: str) -> Dict[str, Any]:
     result = urlparse(ref)
     definition_schema = load_ref('schema', result.path)
+
+    if not result.fragment:
+        return definition_schema
 
     sub_path = pathlib.PosixPath(result.fragment)
     data = None
@@ -283,7 +289,7 @@ def generate_template(folder_schema: pathlib.Path,
                       folder_output: pathlib.Path,
                       entity_name: str,
                       description: str):
-    print('Rendering:', entity_name)
+    print('Rendering template:', entity_name)
     output_path = folder_output / f'{entity_name}.markdown'
 
     # Loading entity schema
@@ -352,6 +358,7 @@ def generate_docs(folder_schema: pathlib.Path,
         with open(folder_schema / f'{entity_name}.json', mode='r') as fin:
             entity_schema = json.load(fin)
 
+        print('Rendering documentation:', entity_name)
         render_data = render_field(entity_name, entity_schema, True)
         documentation = render_data.render(render_itself=False)
 

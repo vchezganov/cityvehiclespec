@@ -1,0 +1,62 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://github.com/vchezganov/cityvehiclespec/schema/place/parking_lot.json",
+    "title": "Parking Lot",
+    "type": "object",
+    "properties": {
+        "id": {
+            "description": "Unique identifier for the parking lot.",
+            "type": "string"
+        },
+
+        "name": {
+            "description": "Name of the parking lot.",
+            "$ref": "definitions.json#/$defs/translation"
+        },
+
+        "description": {
+            "description": "Description of the parking lot.",
+            "$ref": "definitions.json#/$defs/translation"
+        },
+
+        "loc": {
+            "description": "Location of the parking lot`.",
+            "$ref": "definitions.json#/$defs/location"
+        },
+
+        "kind": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "lotType": {
+                        "enum": ["bike", "car"]
+                    },
+                    "capacity": {
+                        "description": "Capacity of the parking lot.",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "lotType",
+                    "capacity"
+                ]
+            }
+        },
+
+        "web": {
+            "description": "Website of the parking lot.",
+            "type": "string"
+        },
+
+        "features": {
+            "description": "Features of the parking lot.",
+            "$ref": "definitions.json#/$defs/placeFeatures"
+        }
+    },
+    "required": [
+        "id",
+        "name",
+        "loc"
+    ]
+}

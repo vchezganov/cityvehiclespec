@@ -2,107 +2,18 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://github.com/vchezganov/cityvehiclespec/schema/place.json",
     "title": "Place",
-    "type": "object",
-    "properties": {
-        "id": {
-            "description": "Unique identifier for the place",
-            "type": "string"
+    "oneOf": [
+        {
+            "$ref": "place/stop.json"
         },
-        "name": {
-            "description": "Name of the place",
-            "$ref": "definitions.json#/$defs/translation"
+        {
+            "$ref": "place/access_point.json"
         },
-        "description": {
-            "description": "Description of the place",
-            "$ref": "definitions.json#/$defs/translation"
+        {
+            "$ref": "place/parking_lot.json"
         },
-        "loc": {
-            "description": "Location of the place",
-            "$ref": "definitions.json#/$defs/location"
-        },
-        "web": {
-            "description": "Website of the place",
-            "type": "string"
-        },
-        "features": {
-            "description": "Features of the place. All access points and child places, if any, inherit these features.",
-            "$ref": "definitions.json#/$defs/placeFeatures"
-        },
-        "timezone": {
-            "description": "Timezone where the agency operates and that is used for timetables",
-            "type": "string"
-        },
-        "accessPoints": {
-            "description": "Access points of the place",
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "description": "Unique identifier for the access point",
-                        "type": "string"
-                    },
-                    "name": {
-                        "description": "Name of the access point",
-                        "type": "string"
-                    },
-                    "loc": {
-                        "description": "Location of the access point",
-                        "$ref": "definitions.json#/$defs/location"
-                    },
-                    "features": {
-                        "description": "Features of the access point (additionally to inherited from the parent place)",
-                        "$ref": "definitions.json#/$defs/placeFeatures"
-                    }
-                },
-                "required": [
-                    "id",
-                    "name",
-                    "loc"
-                ]
-            }
-        },
-        "childPlaces": {
-            "description": "Child places of the place",
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "description": "Unique identifier for the child point",
-                        "type": "string"
-                    },
-                    "name": {
-                        "description": "Name of the child point",
-                        "type": "string"
-                    },
-                    "loc": {
-                        "description": "Location of the child point",
-                        "$ref": "definitions.json#/$defs/location"
-                    },
-                    "features": {
-                        "description": "Features of the child point (additionally to inherited from the parent place)",
-                        "$ref": "definitions.json#/$defs/placeFeatures"
-                    }
-                },
-                "required": [
-                    "id",
-                    "name",
-                    "loc"
-                ]
-            }
-        },
-        "icon": {
-            "description": "Icon for the agency in base64 format",
-            "type": "string"
-        },
-        "graphics": {
-            "$ref": "definitions.json#/$defs/graphics"
+        {
+            "$ref": "place/group.json"
         }
-    },
-    "required": [
-        "id",
-        "name",
-        "loc"
     ]
 }

@@ -8,45 +8,52 @@
             "description": "Unique identifier for the route",
             "type": "string"
         },
-        "agency": {
-            "description": "Agency's identifier the route belongs to",
+
+        "operator": {
+            "description": "Operator's identifier the route belongs to",
             "type": "string"
         },
+
         "name": {
             "description": "Name of the route",
             "$ref": "definitions.json#/$defs/translation"
         },
+
         "description": {
             "description": "Description of the route",
             "$ref": "definitions.json#/$defs/translation"
         },
+
         "lineColor": {
             "description": "Line color of the route",
             "$ref": "definitions.json#/$defs/color"
         },
+
         "fontColor": {
             "description": "Font color of the route",
             "$ref": "definitions.json#/$defs/color"
         },
+
         "vehicleType": {
-            "description": "Vehicle type of the route",
-            "type": [
-                "string",
-                "number"
-            ]
+            "description": "Vehicle type of the route. For consistency it is better to use the same codes as in GTFS https://developers.google.com/transit/gtfs/reference/extended-route-types",
+            "type": "number"
         },
+
         "features": {
-            "description": "Features of the trip.",
+            "description": "Features of the route.",
             "$ref": "definitions.json#/$defs/routeFeatures"
         },
+
         "operationDays": {
             "description": "Operation days of the route",
             "$ref": "definitions.json#/$defs/operationDays"
         },
+
         "timezone": {
             "description": "Timezone where the agency operates and that is used for timetables",
             "type": "string"
         },
+
         "icon": {
             "description": "Icon of the route",
             "$ref": "definitions.json#/$defs/graphics"
