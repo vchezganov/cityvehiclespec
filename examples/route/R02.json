@@ -5,7 +5,7 @@
     "description": "Route Two",
     "lineColor": "#770077",
     "fontColor": "#000000",
-    "vehicleType": "bus",
+    "vehicleType": 100,
     "features": [
         "wheelchair_access",
         "bike_allowed"

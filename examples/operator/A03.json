@@ -5,6 +5,7 @@
         "de": "Verkehrsbetriebe 03"
     },
     "language": "de",
+    "timezone": "Europe/Madrid",
     "phone": [
         {"phoneType": "information", "value": "54321"},
         {"phoneType": "support", "value": "12345"}

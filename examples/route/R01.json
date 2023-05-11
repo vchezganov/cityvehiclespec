@@ -5,7 +5,7 @@
     "description": "Route One",
     "lineColor": "#770077",
     "fontColor": "#000000",
-    "vehicleType": "bus",
+    "vehicleType": 100,
     "features": [
         "bike_allowed",
         "wheelchair_access"

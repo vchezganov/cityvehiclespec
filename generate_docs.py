@@ -99,8 +99,8 @@ def render_field(field_name: str,
                  field_data: Dict[str, Any],
                  is_required: bool,
                  level: int = 0) -> RenderData:
-    if field_data is None or isinstance(field_data, str):
-        raise ValueError(field_name)
+    if isinstance(field_data, str):
+        raise ValueError(field_name + str(field_data))
     field_type = field_data.get('type', 'unknown')
     description = field_data.get('description', '')
     examples = field_data.get('examples')

@@ -1,5 +1,6 @@
 {
     "id": "A01",
     "name": "Agency 01",
-    "language": "en"
+    "language": "en",
+    "timezone": "Europe/Berlin"
 }

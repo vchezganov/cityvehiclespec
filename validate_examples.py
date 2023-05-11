@@ -14,17 +14,24 @@ def validate_examples(entity_name: str):
     #                                              referrer=True)
 
     folder_schema = pathlib.Path('schema')
+    store = {}
 
-    with open(folder_schema / 'definitions.json', mode='r') as fin:
-        definition_schema = json.load(fin)
+    for f in [
+        'definitions.json',
+        'place/transit_stop.json',
+        'place/access_point.json',
+        'place/parking_lot.json',
+        'place/transit_stop.json',
+    ]:
+        with open(folder_schema / f, mode='r') as fin:
+            sub_schema = json.load(fin)
+
+        store[sub_schema['$id']] = sub_schema
 
     with open(folder_schema / f'{entity_name}.json', mode='r') as fin:
         entity_schema = json.load(fin)
 
-    store = {
-        definition_schema['$id']: definition_schema,
-        entity_schema['$id']: entity_schema,
-    }
+    store[entity_schema['$id']] = entity_schema
 
     resolver = jsonschema.RefResolver(base_uri='https://github.com/vchezganov/cityvehiclespec/schema/',
                                       referrer=True,

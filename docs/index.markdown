@@ -3,6 +3,8 @@ layout: page
 permalink: /
 ---
 
+**DRAFT**
+
 **CityVehicleSpec** is the specification for _public transit_ data (stops, routes, timetables, etc)
 and _mobility_ data (personal or shared scooters, bikes, cars, etc). It is an attempt
 to improve and join two specifications
@@ -18,7 +20,13 @@ It also allows to validate entities for basic errors.
 ## Content
 - [File structure](./structure.markdown)
 - [Data settings](./settings.markdown)
-- Entities
-  - [Operator](./operator.markdown)
-  - [Place](./place.markdown)
-  - [Route](./route.markdown)
+- Static Entities
+  - [Operator](./operator.markdown) (transit agency, sharing provider, parkint lot owner, etc)
+  - [Place](./place.markdown) (transit stop, entrance, parking lot, etc)
+  - [Route](./route.markdown) (bus, metro, train routes, etc)
+  - [Connection] (footpath between places, indoor route between platforms, etc)
+  - [Graphic] (3D of places, route polyline, operator icon, etc)
+- Realtime Feeds
+  - [PlaceUpdates] (updates for places, for example, if it is closed, warnings, broken elevators, number of free parking lots, etc)
+  - [RouteUpdates] (delays on routes, cancellations, warnings, deroutings, etc)
+  - [VehiclePositions] (bus positions, sharing vehicle positions, etc)

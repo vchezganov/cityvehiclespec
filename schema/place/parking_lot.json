@@ -11,17 +11,17 @@
 
         "name": {
             "description": "Name of the parking lot.",
-            "$ref": "definitions.json#/$defs/translation"
+            "$ref": "../definitions.json#/$defs/translation"
         },
 
         "description": {
             "description": "Description of the parking lot.",
-            "$ref": "definitions.json#/$defs/translation"
+            "$ref": "../definitions.json#/$defs/translation"
         },
 
         "loc": {
             "description": "Location of the parking lot`.",
-            "$ref": "definitions.json#/$defs/location"
+            "$ref": "../definitions.json#/$defs/location"
         },
 
         "kind": {
@@ -51,7 +51,7 @@
 
         "features": {
             "description": "Features of the parking lot.",
-            "$ref": "definitions.json#/$defs/placeFeatures"
+            "$ref": "../definitions.json#/$defs/placeFeatures"
         }
     },
     "required": [

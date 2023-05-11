@@ -4,16 +4,20 @@
     "title": "Place",
     "oneOf": [
         {
-            "$ref": "place/stop.json"
+            "description": "Public transit stop, for example, train station, bus stop, etc",
+            "$ref": "place/transit_stop.json"
         },
         {
+            "description": "Access point to other places, for example, entrance or exit",
             "$ref": "place/access_point.json"
         },
         {
+            "description": "Parking lot for cars, bikes, etc.",
             "$ref": "place/parking_lot.json"
         },
         {
-            "$ref": "place/group.json"
+            "description": "Group of places, for example, the central station containing different places like stops, access points, parking lots.",
+            "$ref": "place/place_group.json"
         }
     ]
 }
