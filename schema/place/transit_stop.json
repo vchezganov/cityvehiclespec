@@ -11,17 +11,17 @@
 
         "name": {
             "description": "Name of the stop",
-            "$ref": "../definitions.json#/$defs/translation"
+            "$ref": "definitions.json#/$defs/translation"
         },
 
         "description": {
             "description": "Description of the stop",
-            "$ref": "../definitions.json#/$defs/translation"
+            "$ref": "definitions.json#/$defs/translation"
         },
 
         "loc": {
             "description": "Location of the stop",
-            "$ref": "../definitions.json#/$defs/location"
+            "$ref": "definitions.json#/$defs/location"
         },
 
         "web": {
@@ -31,7 +31,7 @@
 
         "features": {
             "description": "Features of the stop.",
-            "$ref": "../definitions.json#/$defs/placeFeatures"
+            "$ref": "definitions.json#/$defs/placeFeatures"
         },
         "timezone": {
             "description": "Timezone where the agency operates and that is used for timetables",
@@ -53,11 +53,11 @@
                     },
                     "loc": {
                         "description": "Location of the access point",
-                        "$ref": "../definitions.json#/$defs/location"
+                        "$ref": "definitions.json#/$defs/location"
                     },
                     "features": {
                         "description": "Features of the access point (additionally to inherited from the parent place)",
-                        "$ref": "../definitions.json#/$defs/placeFeatures"
+                        "$ref": "definitions.json#/$defs/placeFeatures"
                     }
                 },
                 "required": [
@@ -83,11 +83,11 @@
                     },
                     "loc": {
                         "description": "Location of the child point",
-                        "$ref": "../definitions.json#/$defs/location"
+                        "$ref": "definitions.json#/$defs/location"
                     },
                     "features": {
                         "description": "Features of the child point (additionally to inherited from the parent place)",
-                        "$ref": "../definitions.json#/$defs/placeFeatures"
+                        "$ref": "definitions.json#/$defs/placeFeatures"
                     }
                 },
                 "required": [
@@ -102,7 +102,7 @@
             "type": "string"
         },
         "graphics": {
-            "$ref": "../definitions.json#/$defs/graphics"
+            "$ref": "definitions.json#/$defs/graphics"
         }
     },
     "required": [

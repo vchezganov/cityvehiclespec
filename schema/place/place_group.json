@@ -11,17 +11,17 @@
 
         "name": {
             "description": "Name of the group.",
-            "$ref": "../definitions.json#/$defs/translation"
+            "$ref": "definitions.json#/$defs/translation"
         },
 
         "description": {
             "description": "Description of the group.",
-            "$ref": "../definitions.json#/$defs/translation"
+            "$ref": "definitions.json#/$defs/translation"
         },
 
         "loc": {
             "description": "Location of the group if any.",
-            "$ref": "../definitions.json#/$defs/location"
+            "$ref": "definitions.json#/$defs/location"
         },
 
         "web": {
@@ -31,7 +31,7 @@
 
         "features": {
             "description": "Features of the group. All places in the group will inherit these features.",
-            "$ref": "../definitions.json#/$defs/placeFeatures"
+            "$ref": "definitions.json#/$defs/placeFeatures"
         },
 
         "places": {
