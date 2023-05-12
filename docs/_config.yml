@@ -60,3 +60,6 @@ header_pages:
   - operator.markdown
   - place.markdown
   - route.markdown
+  - connection.markdown
+  - translation.markdown
+  - graphic.markdown

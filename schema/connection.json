@@ -1,0 +1,74 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://github.com/vchezganov/cityvehiclespec/schema/connection.json",
+    "title": "Connection",
+    "type": "object",
+    "properties": {
+        "id": {
+            "description": "Unique identifier of the connection.",
+            "type": "string"
+        },
+
+        "placeA": {
+            "description": "Unique identifier of the first place.",
+            "type": "string"
+        },
+
+        "placeB": {
+            "description": "Unique identifier of the second place.",
+            "type": "string"
+        },
+
+        "options": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "kind": {
+                        "description": "Kind of the connection option.",
+                        "enum": ["footpath", "indoor", "vehicle"]
+                    },
+                    "distance": {
+                        "description": "Distance between two places in meters.",
+                        "type": "number"
+                    },
+                    "duration": {
+                        "description": "Time required to reach another end in seconds.",
+                        "type": "integer"
+                    },
+                    "guidance": {
+                        "description": "List of instructions how to reach another place.",
+                        "type": "object",
+                        "properties": {
+                            "forward": {
+                                "description": "Instructions from start point to end point.",
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "backward": {
+                                "description": "Instructions from end point to start point.",
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "required": [
+                    "kind",
+                    "distance"
+                ]
+            }
+        }
+    },
+    "required": [
+        "id",
+        "placeA",
+        "placeB",
+        "options"
+    ]
+}

@@ -5,10 +5,10 @@ permalink: /{{ permalink }}
 ---
 
 - [Description](#description)
-- [Schema](#schema)
 {% if examples %}
 - [Examples](#examples)
 {% endif %}
+- [Schema](#schema)
 
 {% block head %}{% endblock %}
 

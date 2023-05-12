@@ -10,7 +10,14 @@
         },
         "translations": {
             "description": "Translations of the text",
-            "type": "object"
+            "type": "object",
+            "examples": [
+                {
+                    "en": "Train station",
+                    "de": "Bahnhof",
+                    "ru": "Железнодорожная станция"
+                }
+            ]
         }
     },
     "required": [

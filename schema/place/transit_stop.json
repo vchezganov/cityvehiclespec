@@ -10,99 +10,59 @@
         },
 
         "name": {
-            "description": "Name of the stop",
+            "description": "Name of the stop.",
             "$ref": "definitions.json#/$defs/translation"
         },
 
         "description": {
-            "description": "Description of the stop",
+            "description": "Description of the stop.",
             "$ref": "definitions.json#/$defs/translation"
         },
 
         "loc": {
-            "description": "Location of the stop",
+            "description": "Location of the stop.",
             "$ref": "definitions.json#/$defs/location"
         },
 
         "web": {
-            "description": "Website of the stop",
+            "description": "Website of the stop.",
             "type": "string"
         },
 
         "features": {
-            "description": "Features of the stop.",
+            "description": "Features of the stop. If the stop belongs to some groups, it gets all features of the groups.",
             "$ref": "definitions.json#/$defs/placeFeatures"
         },
+
         "timezone": {
-            "description": "Timezone where the agency operates and that is used for timetables",
+            "description": "Timezone of the stop.",
             "type": "string"
         },
-        "accessPoints": {
-            "description": "Access points of the place",
+
+        "places": {
+            "description": "List of unique place identifiers that are linked to the stop.",
             "type": "array",
             "items": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "description": "Unique identifier for the access point",
-                        "type": "string"
-                    },
-                    "name": {
-                        "description": "Name of the access point",
-                        "type": "string"
-                    },
-                    "loc": {
-                        "description": "Location of the access point",
-                        "$ref": "definitions.json#/$defs/location"
-                    },
-                    "features": {
-                        "description": "Features of the access point (additionally to inherited from the parent place)",
-                        "$ref": "definitions.json#/$defs/placeFeatures"
-                    }
-                },
-                "required": [
-                    "id",
-                    "name",
-                    "loc"
-                ]
-            }
+                "type": "string"
+            },
+            "uniqueItems": true
         },
-        "childPlaces": {
-            "description": "Child places of the place",
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "description": "Unique identifier for the child point",
-                        "type": "string"
-                    },
-                    "name": {
-                        "description": "Name of the child point",
-                        "type": "string"
-                    },
-                    "loc": {
-                        "description": "Location of the child point",
-                        "$ref": "definitions.json#/$defs/location"
-                    },
-                    "features": {
-                        "description": "Features of the child point (additionally to inherited from the parent place)",
-                        "$ref": "definitions.json#/$defs/placeFeatures"
-                    }
-                },
-                "required": [
-                    "id",
-                    "name",
-                    "loc"
-                ]
-            }
-        },
-        "icon": {
-            "description": "Icon for the agency in base64 format",
-            "type": "string"
-        },
+
         "graphics": {
-            "$ref": "definitions.json#/$defs/graphics"
+            "description": "Graphics that are accociated with the stop.",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "kind": {
+                        "description": "Kind of the graphic.",
+                        "enum": ["icon", "2D", "3D"]
+                    },
+                    "graphic": {
+                        "$ref": "definitions.json#/$defs/graphicReference"
+                    }
+                }
+            }
         }
     },
     "required": [

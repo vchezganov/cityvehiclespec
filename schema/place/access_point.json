@@ -5,38 +5,38 @@
     "type": "object",
     "properties": {
         "id": {
-            "description": "Unique identifier for the group.",
+            "description": "Unique identifier for the place.",
             "type": "string"
         },
 
         "name": {
-            "description": "Name of the group.",
+            "description": "Name of the access point.",
             "$ref": "definitions.json#/$defs/translation"
         },
 
         "description": {
-            "description": "Description of the group.",
+            "description": "Description of the access point.",
             "$ref": "definitions.json#/$defs/translation"
         },
 
         "loc": {
-            "description": "Location of the group if any.",
+            "description": "Location of the access point.",
             "$ref": "definitions.json#/$defs/location"
         },
 
-        "web": {
-            "description": "Website of the group.",
-            "type": "string"
+        "direction": {
+            "description": "Direction defines if the access point is only for entering or exit. By default, it is for both.",
+            "enum": ["onlyEnter", "onlyExit"]
         },
 
         "features": {
-            "description": "Features of the group. All places in the group will inherit these features.",
+            "description": "Features of the access point. If the access point belongs to some groups, it gets all features of the groups.",
             "$ref": "definitions.json#/$defs/placeFeatures"
         }
     },
     "required": [
         "id",
         "name",
-        "places"
+        "loc"
     ]
 }

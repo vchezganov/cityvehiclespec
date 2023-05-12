@@ -9,6 +9,6 @@ data
 /operator.markdown
 /place.markdown
 /route.markdown
-/graphic.markdown
+/connection.markdown
 /translation.markdown
-/footpath.markdown
+/graphic.markdown

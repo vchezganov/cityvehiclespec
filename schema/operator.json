@@ -141,17 +141,21 @@
             "$ref": "definitions.json#/$defs/location"
         },
 
-        "graphicIcon": {
-            "description": "Graphic identifier or relative path (with or without extension) to a graphic file defining an icon for the operator.",
-            "type": "string",
-            "examples": [
-                {
-                    "graphicIcon": "graphic_operator_abc"
-                },
-                {
-                    "graphicIcon": "graphic/operator_abc.svg"
+        "graphics": {
+            "description": "Graphics that are accociated with the stop.",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "kind": {
+                        "description": "Kind of the graphic.",
+                        "enum": ["icon"]
+                    },
+                    "graphic": {
+                        "$ref": "definitions.json#/$defs/graphicReference"
+                    }
                 }
-            ]
+            }
         }
     },
 

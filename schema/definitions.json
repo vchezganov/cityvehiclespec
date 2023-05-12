@@ -190,6 +190,19 @@
             ]
         },
 
+        "graphicReference": {
+            "description": "Graphic identifier or relative path (with or without extension) to a graphic file.",
+            "type": "string",
+            "examples": [
+                {
+                    "graphicIcon": "graphic_operator_abc"
+                },
+                {
+                    "graphicIcon": "graphic/operator_abc.svg"
+                }
+            ]
+        },
+
         "operationDays": {
             "description": "Operation days of the route",
             "type": "object",

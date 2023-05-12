@@ -11,9 +11,9 @@ ENTITIES = [
     'operator',
     'place',
     'route',
-    'footpath',
-    'graphic',
+    'connection',
     'translation',
+    'graphic'
 ]
 CUSTOM_KEYS = {'examples'}
 

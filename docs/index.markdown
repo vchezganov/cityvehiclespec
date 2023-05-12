@@ -24,8 +24,9 @@ It also allows to validate entities for basic errors.
   - [Operator](./operator.markdown) (transit agency, sharing provider, parkint lot owner, etc)
   - [Place](./place.markdown) (transit stop, entrance, parking lot, etc)
   - [Route](./route.markdown) (bus, metro, train routes, etc)
-  - [Connection] (footpath between places, indoor route between platforms, etc)
-  - [Graphic] (3D of places, route polyline, operator icon, etc)
+  - [Connection](./connection.markdown) (footpath between places, indoor route between platforms, etc)
+  - [Translation](./translation.markdown) (translations to other languages)
+  - [Graphic](./graphic.markdown) (3D of places, route polyline, operator icon, etc)
 - Realtime Feeds
   - [PlaceUpdates] (updates for places, for example, if it is closed, warnings, broken elevators, number of free parking lots, etc)
   - [RouteUpdates] (delays on routes, cancellations, warnings, deroutings, etc)
