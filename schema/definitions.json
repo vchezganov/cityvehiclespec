@@ -3,29 +3,29 @@
     "$id": "https://github.com/vchezganov/cityvehiclespec/schema/definitions.json",
     "$defs": {
         "longitude": {
-            "description": "Longitude",
+            "description": "Longitude.",
             "type": "number",
             "minimum": -180,
             "maximum": 180
         },
 
         "latitude": {
-            "description": "Latitude",
+            "description": "Latitude.",
             "type": "number",
             "minimum": -90,
             "maximum": 90
         },
 
         "altitude": {
-            "description": "Altitude in meters",
+            "description": "Altitude in meters.",
             "type": "number"
         },
 
         "location": {
-            "description": "Geographical location of longitude, latitude and optional altitude",
+            "description": "Geographical location of longitude, latitude and optional altitude.",
             "oneOf": [
                 {
-                    "description": "Array of coordinates",
+                    "description": "Array of coordinates.",
                     "type": "array",
                     "minItems": 2,
                     "maxItems": 3,
@@ -39,10 +39,13 @@
                         {
                             "$ref": "#/$defs/altitude"
                         }
+                    ],
+                    "examples": [
+                        [52.423412, 42.423413]
                     ]
                 },
                 {
-                    "description": "Object of coordinates",
+                    "description": "Object of coordinates.",
                     "type": "object",
                     "properties": {
                         "lon": {
@@ -58,6 +61,13 @@
                     "required": [
                         "lon",
                         "lat"
+                    ],
+                    "examples": [
+                        {
+                            "lon": 52.423412,
+                            "lat": 42.423413,
+                            "alt": 100
+                        }
                     ]
                 }
             ]
@@ -69,7 +79,7 @@
         },
 
         "color": {
-            "description": "Color in HEX format",
+            "description": "Color in HEX format.",
             "type": "string",
             "pattern": "^#[0-9a-fA-F]{6}$"
         },
@@ -82,7 +92,13 @@
                 },
                 {
                     "description": "Texts for different languages.",
-                    "type": "object"
+                    "type": "object",
+                    "examples": [
+                        {
+                            "en": "Train Station",
+                            "de": "Bahnhof"
+                        }
+                    ]
                 }
             ]
         },
@@ -162,15 +178,15 @@
         "graphics": {
             "oneOf": [
                 {
-                    "description": "Reference identifier to the geometry with or without format",
+                    "description": "Reference identifier to the geometry with or without format.",
                     "type": "string"
                 },
                 {
-                    "description": "Geometry of the entity",
+                    "description": "Geometry of the entity.",
                     "type": "object",
                     "properties": {
                         "format": {
-                            "description": "Format of the geometry data",
+                            "description": "Format of the geometry data.",
                             "enum": [
                                 "base64_svg",
                                 "base64_png",
@@ -179,7 +195,7 @@
                             ]
                         },
                         "data": {
-                            "description": "Geometry data of the entity"
+                            "description": "Geometry data of the entity."
                         }
                     },
                     "required": [

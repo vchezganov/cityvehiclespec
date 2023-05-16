@@ -1,6 +1,6 @@
 .main {
-    font-size: 0.8em;
-    margin-bottom: 1.5em;
+    font-size: 0.8rem;
+    margin-bottom: 1.5rem;
 }
 
 .code {
@@ -8,25 +8,23 @@
 }
 
 .required {
-    font-size: 0.8em;
+    font-size: 0.8rem;
     color: firebrick;
 }
 
 .addition {
-    margin-top: 0.5em;
-    margin-left: 0.5em;
-    padding-left: 0.5em;
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+    padding-left: 0.5rem;
     border-left: 1px solid lightgray;
 }
 
 .field {
     display: flex;
-    padding: 0.2em;
-    padding-top: 0.7em;
-    padding-bottom: 0.7em;
+    column-gap: 0.5rem;
+    padding: 0.7rem 0.2rem;
     justify-content: space-between;
     border-bottom: 1px solid lightgray;
-    align-items: center;
 }
 
 .field:hover {
@@ -54,6 +52,26 @@
 }
 
 .shift {
-    margin-left: 2em;
+    margin-left: 2rem;
+}
+
+.arrow {
+    position: relative;
+}
+
+.arrow::before {
+    content: '>';
+    position: absolute;
+    left: -16px;
+    transition: all 0.35s;
+    color: #888888;
+}
+
+.arrow-open::before {
+    transform: rotate(90deg);
+    transform-origin: center center;
+}
+
+.hidden {
     display: none;
 }
